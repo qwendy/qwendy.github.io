@@ -1,0 +1,885 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="翻译,DHT,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="本文翻译原文：http://www.bittorrent.org/beps/bep_0003.htmlBitTorrent是一个分发文件的协议。它通过URL识别内容，旨在与网络无缝集成。它和一般的HTTP相比的优势在于，当同一个文件的多个下载同时发生时，下载者相互上传，使得文件源可以支持非常大量下载，而其负载增加很小。 BitTorrent文件分发有这些部分组成： 一个普通的web服务器 静态“元">
+<meta name="keywords" content="翻译,DHT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（翻译）BitTorrent-Protocol协议规范">
+<meta property="og:url" content="http://yoursite.com/2016/12/26/（翻译）BitTorrent-Protocol协议规范/index.html">
+<meta property="og:site_name" content="钱文翔的博客">
+<meta property="og:description" content="本文翻译原文：http://www.bittorrent.org/beps/bep_0003.htmlBitTorrent是一个分发文件的协议。它通过URL识别内容，旨在与网络无缝集成。它和一般的HTTP相比的优势在于，当同一个文件的多个下载同时发生时，下载者相互上传，使得文件源可以支持非常大量下载，而其负载增加很小。 BitTorrent文件分发有这些部分组成： 一个普通的web服务器 静态“元">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-07T12:11:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="（翻译）BitTorrent-Protocol协议规范">
+<meta name="twitter:description" content="本文翻译原文：http://www.bittorrent.org/beps/bep_0003.htmlBitTorrent是一个分发文件的协议。它通过URL识别内容，旨在与网络无缝集成。它和一般的HTTP相比的优势在于，当同一个文件的多个下载同时发生时，下载者相互上传，使得文件源可以支持非常大量下载，而其负载增加很小。 BitTorrent文件分发有这些部分组成： 一个普通的web服务器 静态“元">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/26/（翻译）BitTorrent-Protocol协议规范/">
+
+
+
+
+
+  <title> （翻译）BitTorrent-Protocol协议规范 | 钱文翔的博客 </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">钱文翔的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/26/（翻译）BitTorrent-Protocol协议规范/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                （翻译）BitTorrent-Protocol协议规范
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-26T10:52:55+08:00">
+                2016-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/DHT/" itemprop="url" rel="index">
+                    <span itemprop="name">DHT</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2016/12/26/（翻译）BitTorrent-Protocol协议规范/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/26/（翻译）BitTorrent-Protocol协议规范/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文翻译原文：<a href="http://www.bittorrent.org/beps/bep_0003.html" target="_blank" rel="noopener">http://www.bittorrent.org/beps/bep_0003.html</a><br>BitTorrent是一个分发文件的协议。它通过URL识别内容，旨在与网络无缝集成。它和一般的HTTP相比的优势在于，当同一个文件的多个下载同时发生时，下载者相互上传，使得文件源可以支持非常大量下载，而其负载增加很小。</p>
+<h2 id="BitTorrent文件分发有这些部分组成："><a href="#BitTorrent文件分发有这些部分组成：" class="headerlink" title="BitTorrent文件分发有这些部分组成："></a>BitTorrent文件分发有这些部分组成：</h2><ul>
+<li>一个普通的web服务器</li>
+<li>静态“元信息（metainfo）”文件</li>
+<li>BitTorrent跟踪器（tracker）</li>
+<li>“原始”下载器</li>
+<li>用户web浏览器端</li>
+<li>用户下载器端</li>
+</ul>
+<p>理想情况下多端用户现在同一个文件</p>
+<h2 id="要开始服务，主机将执行以下步骤"><a href="#要开始服务，主机将执行以下步骤" class="headerlink" title="要开始服务，主机将执行以下步骤"></a>要开始服务，主机将执行以下步骤</h2><ol>
+<li>开启一个跟踪器（tracker）</li>
+<li>开启一个普通的web服务器，例如Apache</li>
+<li>在他们的Web服务器上，将扩展名.torrent与mimetype应用程序/ x-bittorrent相关联。</li>
+<li>使用提供的完整的文件和跟踪器URL，生成一个元数据（metainfo）的(.torrent) 文件</li>
+<li>将元信息(.torrent)文件放在web服务器上</li>
+<li>链接来自其它网页的(.torrent)元数据文件<a id="more"></a>
+<h2 id="bencoding"><a href="#bencoding" class="headerlink" title="bencoding"></a>bencoding</h2></li>
+</ol>
+<ul>
+<li>十进制的字符串长度，后面跟着冒号和字符串。例如4:spam对应于“span”</li>
+<li>整数用一个’i’来表示，后跟一个十进制的数字，再后面跟着一个’e’。例如：i3e对应3，i-3e代表-3。整数没有大小限制，i-0e是无效的。所有具有前导0的编码，例如i03e，都是无效的，除了i0e，其毫无疑问对应0。</li>
+<li>列表被编码成‘l’，后面是他们的元素（也是bencode），在接着是‘e’.例如：l4：spam4：eggs对应：[‘spam’,’eggs’].</li>
+<li>字典被编码成’d’，后面跟着一个交替的建和对应的列表，后跟一个’e’。例如，d3:cow3:moo4:spam4:eggse 对应{‘cow’: ‘moo’, ‘spam’: ‘eggs’}， d4:spaml1:a1:bee对应{‘spam’: [‘a’, ‘b’]}。键必须是字符串并按排序顺序显示（按原始字符串排序，而不是字母数字）。</li>
+</ul>
+<h2 id="metainfo-files-元信息文件"><a href="#metainfo-files-元信息文件" class="headerlink" title="metainfo files(元信息文件)"></a>metainfo files(元信息文件)</h2><p>元信息文件（也被认作.torrent文件）使用以下键编程成bencoded字典：</p>
+<ul>
+<li>announce： 跟踪器（tracker）的URL</li>
+<li>info： 映射到字典，具有如下所述的键。</li>
+</ul>
+<p>所有在.torrent文件中包含的字符串必须是UTF-8编码的</p>
+<h3 id="信息字典"><a href="#信息字典" class="headerlink" title="信息字典"></a>信息字典</h3><p>映射UTF编码的字符串的关键字，是用来保存文件的默认名字。它仅仅用来咨询。<br>片段（piece）长度对应到文件被分割成的每个片段中的字节数。为了传输的目的，文件被拆分成固定大小的块，它们具有相同的长度，除了可能被截断的最后一个之外。<br>片（piece）长度几乎总是2的幂，最常见的2 18 = 256 K（BitTorrent在版本3.2之前使用2 20 = 1 M作为默认值）。<br>它被细分为长度为20的字符串，每个字符串是相应索引处的片段的SHA1哈希。<br>还有一个密钥长度或一个密钥文件，但不能同时存在或同时不存在。如果长度存在，则下载表示单个文件，否则它表示进入目录结构的一组文件。<br>在单个文件的情况下，长度映射到文件的长度（以字节为单位）。<br>为了其他键的目的，多文件情况被视为只有一个文件，通过按照它们出现在文件列表中的顺序连接文件。文件列表是文件映射到的值，是包含以下键的字典列表：</p>
+<ul>
+<li>length：文件的长度（以字节为单位）。</li>
+<li>path 与子目录名称对应的UTF-8编码字符串的列表，最后一个是实际文件名（零长度列表是一个错误大小写）。<br>在单文件的情况下，名称键是文件的名称，在多文件的情况下，它是目录的名称。</li>
+</ul>
+<h2 id="跟踪器（tracker）"><a href="#跟踪器（tracker）" class="headerlink" title="跟踪器（tracker）"></a>跟踪器（tracker）</h2><p>跟踪器请求包含以下关键字（key）：</p>
+<ul>
+<li>info_hash<br>  来自metainfo文件的info值的bencoded形式的20字节sha1散列。注意，这是metainfo文件的子字符串。 info_hash必须是在.torrent文件中找到的编码形式的哈希，而不管它是无效的。这个值肯定必须被转义。</li>
+<li>peer_id<br>  是长度为20的字符串，被下载程序用作其id。每个下载程序在新下载开始时随机生成自己的ID。这个值也必须被转义。</li>
+<li>ip<br>  是此peer所在的IP（或dns名称）的可选参数。</li>
+<li>port<br>  是peer正在侦听的端口号。常见的做法是下载器尝试侦听端口6881，如果该端口被占用，则尝试6882，接着6883等，在尝试6889端口后若仍不成功，则放弃.</li>
+<li>upload<br>  目前为止所有的上传量，编码成十进制ascii码。</li>
+<li>downloaded<br>  到目前为止已下载的总量，编码成十进制ascii码。</li>
+<li>left<br>  peer的剩余下载量，以十进制ascii编码。请注意，这不能从已下载的量和文件长度计算，因为它可能只是一个摘要，并且有可能是，部分已下载的数据的完整性检查失败，必须重新下载。</li>
+<li>event<br>  这是一个对应started，completed或stopped 的可选键（或empty，代表不存在）。如果不存在，则定时发出公告。当下载开始时，发送started的通知，并且当下载完成时发送completed。如果文件在启动时已完成，则不会发送completed。下载器在停止下载时发送stopped公告。</li>
+</ul>
+<p>跟踪器（Tracker）的响应是经过bencoded编码的字典。如果跟踪器响应具有关键值的失败原因，则对应到人类可读的字符串，解释了为什么查询失败，并且不需要关其他键字（keys）。除此之外，必须有两个关键字：interval，对应下载器在定期重新请求时应该等待多少秒。peers，对应peers相应的字典列表，每一个都包含peer id，ip和port，peer id指的是peer自选ID，ip指的是IP地址或者dns名字，port指的是端口数。注意，如果有事件发生，或者需要更多的peer，下载器可以在未调度的时间重新请求。<br>更常见的是跟踪器返回peer列表的压缩表示，参见<a href="http://www.bittorrent.org/beps/bep_0023.html" target="_blank" rel="noopener">BEP 23</a>。<br>通常也通过UDP跟踪器协议来通告。</p>
+<h2 id="对等协议（peer-protocal）"><a href="#对等协议（peer-protocal）" class="headerlink" title="对等协议（peer protocal）"></a>对等协议（peer protocal）</h2><p>BitTorrent的对等协议通过TCP或uTP进行操作。<br>peer的连接是对称的。在两个方向上发送的消息看起来是相同的，并且数据可以在任一方向上流动。</p>
+<p>对等协议指的是，在元信息文件中描述的索引零的文件片段。当peer下载完一个块（piece）并且该散列匹配时，它向其他所有的peer宣告它具有了那个块。<br>连接在任一端都包含两位状态：阻塞（choked）或者非阻塞，感兴趣（interested）或者不感兴趣。阻塞表示在非阻塞发生前，不会有数据发送。文档后面将解释阻塞的推论和通用技术。</p>
+<p>只要一方感兴趣，另一方没有阻塞，就进行数据传输。必须随时保持最新感兴趣状态 - 每当下载者当前没有某些资源时，将会向一个peer询问是否处于非阻塞状态，即使被阻塞。他们也必须表示不感兴趣。正确的实现这个很刺手，但是这可以下载者知道，如果不阻塞，哪一个peer将会开始下载。</p>
+<p>连接开始，就将状态变为被阻塞和不感兴趣。</p>
+<p>当数据被传输时，下载器应该将多个块放在队列中一并请求，以获取更好的TCP性能（这叫做流水线）。另一方面，不能立即写入TCP缓冲器的请求应当在存储器中排队，而不是保留在应用级网络缓冲器中，因此当发生阻塞时，它们都可以被抛弃。</p>
+<p>对等线协议由握手和包含长度前缀消息的不间断流组成。握手的开头是字符19（十进位的），然后是字符串BitTorrent protocol。前导字符是一个长度前缀，放在那里，希望其他新协议也这样，可以彼此区分。</p>
+<p>在协议中发送的所有后面出现的整数被编码为四字节（大端排序）。<br>在固定的报头之后有八个保留字节，在所有当前实现中它们都为零。如果您希望使用这些字节扩展协议，请与Bram Cohen协调，以确保所有扩展都兼容。</p>
+<p>接下来是来自metainfo文件的info值的bencoded形式的20字节sha1散列。（这个和发送给tracker的info_hash是一样的值，只在这里它是原始的，而不是引用）。如果双方都不发送相同的值，它们将断开连接。一个可能出现的情况是如果下载者想通过单个端口进行多次下载，他们会等待传入的连接，并首先给出一个下载哈希，并且如果它在它们的列表中，则用同一个哈希进行响应。</p>
+<p>在下载哈希值之后，20个字节的对等体ID在跟踪器请求中报告并且包含在跟踪器响应中的对等体列表中。如果接收方的对等体ID与发起方期望的不匹配，则它切断连接。</p>
+<p>这是握手，接下来是一个交替的长度前缀和消息的流。长度为零的消息是保持活动，并被忽略。 Keepalive通常每两分钟发送一次，但请注意，当预期数据时，超时可以更快地完成。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/tags/DHT/" rel="tag"># DHT</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/22/（翻译）Sharding-mongo官方文档3-2版本/" rel="next" title="（翻译）Sharding-mongo官方文档3.2版本">
+                <i class="fa fa-chevron-left"></i> （翻译）Sharding-mongo官方文档3.2版本
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/21/使用网页打开本地程序/" rel="prev" title="使用网页打开本地程序">
+                使用网页打开本地程序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/26/（翻译）BitTorrent-Protocol协议规范/" data-title="（翻译）BitTorrent-Protocol协议规范" data-url="http://yoursite.com/2016/12/26/（翻译）BitTorrent-Protocol协议规范/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="钱文翔">
+          <p class="site-author-name" itemprop="name">钱文翔</p>
+          <p class="site-description motion-element" itemprop="description">自理，自励，自立</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BitTorrent文件分发有这些部分组成："><span class="nav-number">1.</span> <span class="nav-text">BitTorrent文件分发有这些部分组成：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要开始服务，主机将执行以下步骤"><span class="nav-number">2.</span> <span class="nav-text">要开始服务，主机将执行以下步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bencoding"><span class="nav-number">3.</span> <span class="nav-text">bencoding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#metainfo-files-元信息文件"><span class="nav-number">4.</span> <span class="nav-text">metainfo files(元信息文件)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#信息字典"><span class="nav-number">4.1.</span> <span class="nav-text">信息字典</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跟踪器（tracker）"><span class="nav-number">5.</span> <span class="nav-text">跟踪器（tracker）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对等协议（peer-protocal）"><span class="nav-number">6.</span> <span class="nav-text">对等协议（peer protocal）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">钱文翔</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"qwendy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

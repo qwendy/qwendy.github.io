@@ -1,0 +1,881 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="mongo,sharding,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="资料来源： https://docs.mongodb.com/v3.2/tutorial/administer-shard-tags/详细命令参考： https://docs.mongodb.com/v3.2/reference/sharding/ 分片常用配置Sharding 连接路由服务器 1.\bin\mongo.exe admin --port 40000  设置分片服务器 12345db">
+<meta name="keywords" content="mongo,sharding">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB-Sharding常用命令">
+<meta property="og:url" content="http://yoursite.com/2016/12/22/MongoDB-Sharding常用命令/index.html">
+<meta property="og:site_name" content="钱文翔的博客">
+<meta property="og:description" content="资料来源： https://docs.mongodb.com/v3.2/tutorial/administer-shard-tags/详细命令参考： https://docs.mongodb.com/v3.2/reference/sharding/ 分片常用配置Sharding 连接路由服务器 1.\bin\mongo.exe admin --port 40000  设置分片服务器 12345db">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-07T12:11:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MongoDB-Sharding常用命令">
+<meta name="twitter:description" content="资料来源： https://docs.mongodb.com/v3.2/tutorial/administer-shard-tags/详细命令参考： https://docs.mongodb.com/v3.2/reference/sharding/ 分片常用配置Sharding 连接路由服务器 1.\bin\mongo.exe admin --port 40000  设置分片服务器 12345db">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/22/MongoDB-Sharding常用命令/">
+
+
+
+
+
+  <title> MongoDB-Sharding常用命令 | 钱文翔的博客 </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">钱文翔的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/22/MongoDB-Sharding常用命令/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MongoDB-Sharding常用命令
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-22T20:08:07+08:00">
+                2016-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2016/12/22/MongoDB-Sharding常用命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/22/MongoDB-Sharding常用命令/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>资料来源： <a href="https://docs.mongodb.com/v3.2/tutorial/administer-shard-tags/" target="_blank" rel="noopener">https://docs.mongodb.com/v3.2/tutorial/administer-shard-tags/</a><br>详细命令参考： <a href="https://docs.mongodb.com/v3.2/reference/sharding/" target="_blank" rel="noopener">https://docs.mongodb.com/v3.2/reference/sharding/</a></p>
+<h1 id="分片常用"><a href="#分片常用" class="headerlink" title="分片常用"></a>分片常用</h1><h2 id="配置Sharding"><a href="#配置Sharding" class="headerlink" title="配置Sharding"></a>配置Sharding</h2><ul>
+<li><p>连接路由服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\bin\mongo.exe admin --port 40000</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置分片服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.runCommand(&#123; addshard:&quot;127.0.0.1:27100&quot; &#125;)</span><br><span class="line">db.runCommand(&#123; addshard:&quot;127.0.0.1:27101&quot; &#125;)</span><br><span class="line">db.runCommand(&#123; addshard:&quot;127.0.0.1:27017&quot; &#125;)</span><br><span class="line">或者</span><br><span class="line">sh.addShard(&quot;127.0.0.1:27100&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置要分片的数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.runCommand(&#123; enablesharding:&quot;qdgame&quot; &#125;)</span><br><span class="line">或者：</span><br><span class="line">sh.enableSharding(&quot;qdgame&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭balancing</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.disableBalancing(&quot;qdgame.backpack&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>设置要分片的collection</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.runCommand(&#123; shardcollection: &quot;qdgame.backpack&quot;, key: &#123; _id:1&#125;&#125;)</span><br><span class="line">或者</span><br><span class="line">sh.shardCollection(&quot;qdgame.backpack&quot;,&#123;usrid:1, id:1&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启balancing</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.enableBalancing(&quot;qdgame.backpack&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>注意：设置一定要在admin数据库下。</p>
+<h2 id="使用hash分片一个collection"><a href="#使用hash分片一个collection" class="headerlink" title="使用hash分片一个collection"></a>使用hash分片一个collection</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.shardCollection( &quot;database.collection&quot;, &#123; &lt;field&gt; : &quot;hashed&quot; &#125; )</span><br></pre></td></tr></table></figure>
+<h2 id="改变chunk大小"><a href="#改变chunk大小" class="headerlink" title="改变chunk大小"></a>改变chunk大小</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.settings.save( &#123; _id:&quot;chunksize&quot;, value: &lt;size&gt; &#125; )</span><br></pre></td></tr></table></figure>
+<h2 id="添加index索引"><a href="#添加index索引" class="headerlink" title="添加index索引"></a>添加index索引</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.collection.ensureIndex(&#123;a:1,b:-1&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="管理分片标签"><a href="#管理分片标签" class="headerlink" title="管理分片标签"></a>管理分片标签</h1><h2 id="标记一个分片"><a href="#标记一个分片" class="headerlink" title="标记一个分片"></a>标记一个分片</h2><p>当连接到mongos实例时，使用sh.addShardTag（）方法将标记与特定分片关联。单个分片可以具有多个标签，并且多个分片也可以具有相同的标签。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sh.addShardTag(&quot;shard0000&quot;, &quot;NYC&quot;)</span><br><span class="line">sh.addShardTag(&quot;shard0001&quot;, &quot;NYC&quot;)</span><br><span class="line">sh.addShardTag(&quot;shard0002&quot;, &quot;SFO&quot;)</span><br><span class="line">sh.addShardTag(&quot;shard0002&quot;, &quot;NRT&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>在连接到mongos实例时，您可以使用sh.removeShardTag（）方法从特定分片中删除标签，如以下示例所示，该示例从分片中删除NRT标签：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.removeShardTag(&quot;shard0002&quot;, &quot;NRT&quot;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="标记shard-key范围"><a href="#标记shard-key范围" class="headerlink" title="标记shard key范围"></a>标记shard key范围</h2><p>在连接到mongos实例时使用sh.addTagRange（）方法来给某个范围的shard key添加标签。任何给定的分片键范围都只具有一个分配的标签。您不能重叠定义的范围，也不能多次标记同一范围。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh.addTagRange(&quot;records.users&quot;, &#123; zipcode: &quot;10001&quot; &#125;, &#123; zipcode: &quot;10281&quot; &#125;, &quot;NYC&quot;)</span><br><span class="line">sh.addTagRange(&quot;records.users&quot;, &#123; zipcode: &quot;11201&quot; &#125;, &#123; zipcode: &quot;11240&quot; &#125;, &quot;NYC&quot;)</span><br><span class="line">sh.addTagRange(&quot;records.users&quot;, &#123; zipcode: &quot;94102&quot; &#125;, &#123; zipcode: &quot;94135&quot; &#125;, &quot;SFO&quot;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="从shard-key范围中删除标记"><a href="#从shard-key范围中删除标记" class="headerlink" title="从shard key范围中删除标记"></a>从shard key范围中删除标记</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use config</span><br><span class="line">db.tags.remove(&#123; _id: &#123; ns: &quot;records.users&quot;, min: &#123; zipcode: &quot;10001&quot; &#125;&#125;, tag: &quot;NYC&quot; &#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="访问标签"><a href="#访问标签" class="headerlink" title="访问标签"></a>访问标签</h2><p>sh.status（）列出与每个分片相关联的分片（如果有的话）的标签。shard的标记存在于config数据库的shards<br>集合中的shard文档中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use config</span><br><span class="line">db.shards.find(&#123; tags: &quot;NYC&quot; &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>您可以在config数据库的tags集合中找到所有命名空间的标记范围。 sh.status（显示所有标签范围。要返回用NYC标记的所有shard key范围，请使用以下操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use config</span><br><span class="line">db.shards.find(&#123; tags: &quot;NYC&quot; &#125;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="例子：根据地区来划分数据"><a href="#例子：根据地区来划分数据" class="headerlink" title="例子：根据地区来划分数据"></a>例子：根据地区来划分数据</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>在messages集合中创建测试数据如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;_id&quot; : ObjectId(&quot;56f08c447fe58b2e96f595fa&quot;),</span><br><span class="line">  &quot;country&quot; : &quot;US&quot;,</span><br><span class="line">  &quot;userid&quot; : 123,</span><br><span class="line">  &quot;message&quot; : &quot;Hello there&quot;,</span><br><span class="line">  ...,</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;_id&quot; : ObjectId(&quot;56f08c447fe58b2e96f595fb&quot;),</span><br><span class="line">  &quot;country&quot; : &quot;UK&quot;,</span><br><span class="line">  &quot;userid&quot; : 456,</span><br><span class="line">  &quot;message&quot; : &quot;Good Morning&quot;</span><br><span class="line">  ...,</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;_id&quot; : ObjectId(&quot;56f08c447fe58b2e96f595fc&quot;),</span><br><span class="line">  &quot;country&quot; : &quot;DE&quot;,</span><br><span class="line">  &quot;userid&quot; : 789,</span><br><span class="line">  &quot;message&quot; : &quot;Guten Tag&quot;</span><br><span class="line">  ...,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="shard-key"><a href="#shard-key" class="headerlink" title="shard key"></a>shard key</h3><p>messages集合使用{ country : 1, userid : 1 }组合索引作为shard key。<br>每个文档中的country 字段允许在每个不同的country值上创建标签范围。<br>相对于country，userid字段为shard key提供一个高基数低频率的元素</p>
+<h3 id="写操作"><a href="#写操作" class="headerlink" title="写操作"></a>写操作</h3><p>在Tag相关的分片中，mongos将到来的文档和配置的tag范围比较。如果文档符合配置标签的范围，mongos将此文档路由到此标签的分片中<br>这插入环节，MongoDB可以将不合格任何tag范围的文档路由到随机的分片中。</p>
+<h3 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h3><p>如果这个请求至少包含country字段，MongoDB可以路由请求到特定的分片中。<br>例如MongoDB可以尝试对以下查询执行有针对性的读取操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chatDB = db.getSiblingDB(&quot;chat&quot;)</span><br><span class="line">chatDB.messages.find( &#123; &quot;country&quot; : &quot;UK&quot; , &quot;userid&quot; : &quot;123&quot; &#125; )</span><br></pre></td></tr></table></figure></p>
+<h3 id="均衡器"><a href="#均衡器" class="headerlink" title="均衡器"></a>均衡器</h3><p>均衡器迁移带有tag的块（Chunk）到适合的分片（shard）。在迁移之前，分片可能包含违反配置的tag和tag范围的块。一旦平衡完成，碎片应只包含不违反其分配的标记和标记范围的块。<br>添加个删除标签可以块的迁移。这取决于数据集的大小和标记范围影响的块数量，这些迁移可能会影响集群的性能。</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="取消均衡器"><a href="#取消均衡器" class="headerlink" title="取消均衡器"></a>取消均衡器</h3><p>为了降低性能影响，可以在集合上禁用平衡器，以确保在配置新标记时不会发生迁移。考虑在特定的计划窗口中运行均衡器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.disableBalancing(&quot;chat.message&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>使用sh.isBalancerRunning()来检查平衡器进程当前是否正在运行。等待任何当前平衡回合完成后再继续。</p>
+<h3 id="为每一个分片添加标签"><a href="#为每一个分片添加标签" class="headerlink" title="为每一个分片添加标签"></a>为每一个分片添加标签</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.addShardTag(&lt;shard name&gt;, &quot;NA&quot;)</span><br></pre></td></tr></table></figure>
+<p>您可以通过运行sh.status（）来查看分配给给定分片的标签。</p>
+<h3 id="定义标签范围"><a href="#定义标签范围" class="headerlink" title="定义标签范围"></a>定义标签范围</h3><p>使用sh.addTagRange()方法。这个方法需要：</p>
+<ul>
+<li>完成的目标collection的名字</li>
+<li>范围的下限</li>
+<li>范围的上限</li>
+<li>标签的名字</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sh.addTagRange(</span><br><span class="line">  &quot;chat.messages&quot;,</span><br><span class="line">  &#123; &quot;country&quot; : &quot;US&quot;, &quot;userid&quot; : MinKey &#125;,</span><br><span class="line">  &#123; &quot;country&quot; : &quot;US&quot;, &quot;userid&quot; : MaxKey &#125;,</span><br><span class="line">  &quot;NA&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="开启均衡器"><a href="#开启均衡器" class="headerlink" title="开启均衡器"></a>开启均衡器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.enableBalancing(&quot;chat.message&quot;)</span><br></pre></td></tr></table></figure>
+<p>使用sh.isBalancerRunning()来检查平衡器进程当前是否正在运行</p>
+<h3 id="查看更改"><a href="#查看更改" class="headerlink" title="查看更改"></a>查看更改</h3><p>您可以使用sh.status()</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mongo/" rel="tag"># mongo</a>
+          
+            <a href="/tags/sharding/" rel="tag"># sharding</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/20/《Go语言圣经》学习小记（2）/" rel="next" title="《Go语言圣经》学习小记（2）">
+                <i class="fa fa-chevron-left"></i> 《Go语言圣经》学习小记（2）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/22/（翻译）Sharding-mongo官方文档3-2版本/" rel="prev" title="（翻译）Sharding-mongo官方文档3.2版本">
+                （翻译）Sharding-mongo官方文档3.2版本 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/22/MongoDB-Sharding常用命令/" data-title="MongoDB-Sharding常用命令" data-url="http://yoursite.com/2016/12/22/MongoDB-Sharding常用命令/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="钱文翔">
+          <p class="site-author-name" itemprop="name">钱文翔</p>
+          <p class="site-description motion-element" itemprop="description">自理，自励，自立</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分片常用"><span class="nav-number">1.</span> <span class="nav-text">分片常用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Sharding"><span class="nav-number">1.1.</span> <span class="nav-text">配置Sharding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用hash分片一个collection"><span class="nav-number">1.2.</span> <span class="nav-text">使用hash分片一个collection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改变chunk大小"><span class="nav-number">1.3.</span> <span class="nav-text">改变chunk大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加index索引"><span class="nav-number">1.4.</span> <span class="nav-text">添加index索引</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管理分片标签"><span class="nav-number">2.</span> <span class="nav-text">管理分片标签</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标记一个分片"><span class="nav-number">2.1.</span> <span class="nav-text">标记一个分片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标记shard-key范围"><span class="nav-number">2.2.</span> <span class="nav-text">标记shard key范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从shard-key范围中删除标记"><span class="nav-number">2.3.</span> <span class="nav-text">从shard key范围中删除标记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问标签"><span class="nav-number">2.4.</span> <span class="nav-text">访问标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#例子：根据地区来划分数据"><span class="nav-number">3.</span> <span class="nav-text">例子：根据地区来划分数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#场景"><span class="nav-number">3.1.</span> <span class="nav-text">场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shard-key"><span class="nav-number">3.1.1.</span> <span class="nav-text">shard key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写操作"><span class="nav-number">3.1.2.</span> <span class="nav-text">写操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读操作"><span class="nav-number">3.1.3.</span> <span class="nav-text">读操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#均衡器"><span class="nav-number">3.1.4.</span> <span class="nav-text">均衡器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作"><span class="nav-number">3.2.</span> <span class="nav-text">操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#取消均衡器"><span class="nav-number">3.2.1.</span> <span class="nav-text">取消均衡器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为每一个分片添加标签"><span class="nav-number">3.2.2.</span> <span class="nav-text">为每一个分片添加标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义标签范围"><span class="nav-number">3.2.3.</span> <span class="nav-text">定义标签范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启均衡器"><span class="nav-number">3.2.4.</span> <span class="nav-text">开启均衡器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看更改"><span class="nav-number">3.2.5.</span> <span class="nav-text">查看更改</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">钱文翔</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"qwendy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

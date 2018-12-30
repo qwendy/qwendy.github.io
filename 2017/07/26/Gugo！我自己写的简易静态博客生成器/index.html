@@ -1,0 +1,851 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="yaml,静态博客,go,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="我自己使用Go写了一个简易的静态博客生成器。可以将使用markdown写的博客文章转换成html博客页面。写这篇文章的时候，已经实现了博客主页文章列表，博客文章展示，tag列表和分类列表。 我的github项目–gugo 缘起在看完并翻译writing%20a%20Static%20Blog%20Generator%20in%20Go/)了这篇文章之后，我就有了自己写一个静态博客的想法。 在此之前">
+<meta name="keywords" content="yaml,静态博客,go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gugo！我自己写的简易静态博客生成器">
+<meta property="og:url" content="http://yoursite.com/2017/07/26/Gugo！我自己写的简易静态博客生成器/index.html">
+<meta property="og:site_name" content="钱文翔的博客">
+<meta property="og:description" content="我自己使用Go写了一个简易的静态博客生成器。可以将使用markdown写的博客文章转换成html博客页面。写这篇文章的时候，已经实现了博客主页文章列表，博客文章展示，tag列表和分类列表。 我的github项目–gugo 缘起在看完并翻译writing%20a%20Static%20Blog%20Generator%20in%20Go/)了这篇文章之后，我就有了自己写一个静态博客的想法。 在此之前">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-07T12:11:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gugo！我自己写的简易静态博客生成器">
+<meta name="twitter:description" content="我自己使用Go写了一个简易的静态博客生成器。可以将使用markdown写的博客文章转换成html博客页面。写这篇文章的时候，已经实现了博客主页文章列表，博客文章展示，tag列表和分类列表。 我的github项目–gugo 缘起在看完并翻译writing%20a%20Static%20Blog%20Generator%20in%20Go/)了这篇文章之后，我就有了自己写一个静态博客的想法。 在此之前">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/26/Gugo！我自己写的简易静态博客生成器/">
+
+
+
+
+
+  <title> Gugo！我自己写的简易静态博客生成器 | 钱文翔的博客 </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">钱文翔的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/26/Gugo！我自己写的简易静态博客生成器/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Gugo！我自己写的简易静态博客生成器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-26T10:49:02+08:00">
+                2017-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2017/07/26/Gugo！我自己写的简易静态博客生成器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/26/Gugo！我自己写的简易静态博客生成器/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我自己使用Go写了一个简易的静态博客生成器。可以将使用markdown写的博客文章转换成html博客页面。写这篇文章的时候，已经实现了博客主页文章列表，博客文章展示，tag列表和分类列表。</p>
+<p>我的github项目–<a href="https://github.com/qwendy/gugo" target="_blank" rel="noopener">gugo</a></p>
+<h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>在<a href="https://zupzup.org/static-blog-generator-go/?utm_source=golangweekly&amp;utm_medium=emai" target="_blank" rel="noopener">看完</a>并<a href="https://qwendy.github.io/2017/07/04/(%E7%BF%BB%E8%AF%91" target="_blank" rel="noopener">翻译</a>writing%20a%20Static%20Blog%20Generator%20in%20Go/)了这篇文章之后，我就有了自己写一个静态博客的想法。</p>
+<p>在此之前，我的博客使用的是hexo，看了不少hexo的document来学习使用hexo。为了使我的博客更加赏心悦目，我一直致力于更换hexo的theme，并乐此不疲。</p>
+<p>偶然间从github的trending上看到hugo，第一反应是–“哎哟，不错哟”。我对其这么有好感的主要原因是hugo是用Go写的。然后我就去官方网站看hugo的–啧啧，Hugo的官网真是丑到爆！我直接下拉看themes，嗯，真丑。（我写这篇博客的时候，hugo提供的theme样例已经很多了，看起来还很不错）</p>
+<p>所以，我虽然觉得hugo不错，但因为官方提供的theme样例丑的原因，而并没有使用hugo生成我的静态博客。虽然hugo只是一个静态博客生成器，和网站的theme并无太大关系，但是我一个theme的美观足以促使我使用这个项目。hugo没有代替hexo在我心中的地位，但是她也给了我很深的印象。</p>
+<p>当看到<a href="https://zupzup.org/static-blog-generator-go/?utm_source=golangweekly&amp;utm_medium=emai" target="_blank" rel="noopener">《Writing a Static Blog Generator in Go》</a>这篇文章的时候，我就表现出了极大的兴趣。这篇博客写的非常好，我迫不及待的翻译了这篇文章。让我受益匪浅。</p>
+<a id="more"></a>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>静态博客原理很简单，其核心要素是：1. 解析yaml数据 2. 将markdown文件转成HTML文件 3. 模板渲染 4. 路由</p>
+<h4 id="解析yaml数据"><a href="#解析yaml数据" class="headerlink" title="解析yaml数据"></a>解析yaml数据</h4><p>每篇文章都必须有Title，Date，Tags，Category数据，我们将这些数据称之为metadata。在每篇markdown的文章开头都加上yaml格式的metadata，以便我们获取这些信息。</p>
+<p>解析markdown文件的内容时候，截取metadata数据并Unmarshal。<br>在解析文件的时候，顺便检测more标签，当这个标签单独出现在一行的时候，就表示more之前的内容是概览内容。在首页展示的就是more之前的内容（概览）。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Post)</span> <span class="title">ParseMetaData</span><span class="params">()</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">	buf := bufio.NewReader(bytes.NewReader(p.sourceData))</span><br><span class="line">	metaData := []<span class="keyword">byte</span>&#123;&#125;</span><br><span class="line">	overview := []<span class="keyword">byte</span>&#123;&#125;</span><br><span class="line">	content := []<span class="keyword">byte</span>&#123;&#125;</span><br><span class="line">	metaStart := <span class="literal">false</span></span><br><span class="line">	metaFinished := <span class="literal">false</span></span><br><span class="line">	overviewFinished := <span class="literal">false</span></span><br><span class="line">	<span class="comment">// get the data between the line only have "---"</span></span><br><span class="line">	<span class="keyword">for</span> <span class="literal">true</span> &#123;</span><br><span class="line">		line, isPrefix, lineErr := buf.ReadLine()</span><br><span class="line">		<span class="keyword">if</span> lineErr != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> _, s := <span class="keyword">range</span> []<span class="keyword">string</span>&#123;<span class="string">"---"</span>, <span class="string">"--- "</span>, <span class="string">" --- "</span>, <span class="string">" ---"</span>, <span class="string">"----"</span>&#125; &#123;</span><br><span class="line">			<span class="keyword">if</span> <span class="keyword">string</span>(line) == s &#123;</span><br><span class="line">				<span class="keyword">if</span> metaStart == <span class="literal">true</span> &#123;</span><br><span class="line">					metaFinished = <span class="literal">true</span></span><br><span class="line">				&#125;</span><br><span class="line">				metaStart = <span class="literal">true</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> _, s := <span class="keyword">range</span> []<span class="keyword">string</span>&#123;<span class="string">"&lt;!-- more --&gt;"</span>, <span class="string">"&lt;!-- more--&gt;"</span>, <span class="string">"&lt;!--more --&gt;"</span>&#125; &#123;</span><br><span class="line">			<span class="keyword">if</span> strings.Contains(<span class="keyword">string</span>(line), s) &#123;</span><br><span class="line">				overviewFinished = <span class="literal">true</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> !isPrefix &#123;</span><br><span class="line">			line = <span class="built_in">append</span>(line, []<span class="keyword">byte</span>(<span class="string">"\n"</span>)...)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> metaStart &amp;&amp; !metaFinished &#123;</span><br><span class="line">			metaData = <span class="built_in">append</span>(metaData, line...)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> metaFinished &amp;&amp; !overviewFinished &#123;</span><br><span class="line">			overview = <span class="built_in">append</span>(overview, line...)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> metaFinished &#123;</span><br><span class="line">			content = <span class="built_in">append</span>(content, line...)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> !metaFinished &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">"Cannot find the metadata of the post!"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	err = yaml.Unmarshal(metaData, p.Meta)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> p.Meta.Title == <span class="string">""</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">"The title of the post is empty!"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> p.Meta.Date == <span class="string">""</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">"The Date of the post is empty!"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	p.sourceData = content</span><br><span class="line">	p.overviewData = overview</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="将markdown文件转成HTML文件"><a href="#将markdown文件转成HTML文件" class="headerlink" title="将markdown文件转成HTML文件"></a>将markdown文件转成HTML文件</h4><p>几乎每个主流的现代语言(nodejs,python,go)都有markdown转成HTML的包,直接调用包就可以将Markdown文件转成HTML文件了。我使用的是Go语言，使用<a href="github.com/russross/blackfriday">blackfriday</a> 包将Markdown转成html数据。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Post)</span> <span class="title">Convert</span><span class="params">()</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">	p.htmlData = blackfriday.MarkdownCommon(p.sourceData)</span><br><span class="line">	p.htmlData, err = p.fixHtmlData(p.htmlData)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	p.overviewHtml = blackfriday.MarkdownCommon(p.overviewData)</span><br><span class="line">	p.overviewHtml, err = p.fixHtmlData(p.overviewHtml)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>为了使Markdown文件中的Code数据能够高亮，使用<a href="github.com/sourcegraph/syntaxhighligh">syntaxhighligh</a>将代码的html高亮。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Post)</span> <span class="title">fixHtmlData</span><span class="params">(data []<span class="keyword">byte</span>)</span> <span class="params">(newData []<span class="keyword">byte</span>, err error)</span></span> &#123;</span><br><span class="line">	reader := bytes.NewReader(data)</span><br><span class="line">	doc, err := goquery.NewDocumentFromReader(reader)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> newData, fmt.Errorf(<span class="string">"Creating NewDocumentFromReader Err:%v"</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	doc.Find(<span class="string">"code[class*=\"language-\"]"</span>).Each(<span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>, s *goquery.Selection)</span></span> &#123;</span><br><span class="line">		oldCode := s.Text()</span><br><span class="line">		formatted, _ := syntaxhighlight.AsHTML([]<span class="keyword">byte</span>(oldCode))</span><br><span class="line">		s.Empty()</span><br><span class="line">		s.AppendHtml(<span class="keyword">string</span>(formatted))</span><br><span class="line">	&#125;)</span><br><span class="line">	newDoc, err := doc.Html()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> newData, fmt.Errorf(<span class="string">"Generating new html err: %v"</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// replace the html tags that we donnot need</span></span><br><span class="line">	<span class="keyword">for</span> _, tag := <span class="keyword">range</span> []<span class="keyword">string</span>&#123;<span class="string">"&lt;html&gt;"</span>, <span class="string">"&lt;/html&gt;"</span>, <span class="string">"&lt;head&gt;"</span>, <span class="string">"&lt;/head&gt;"</span>, <span class="string">"&lt;body&gt;"</span>, <span class="string">"&lt;/body&gt;"</span>&#125; &#123;</span><br><span class="line">		newDoc = strings.Replace(newDoc, tag, <span class="string">""</span>, <span class="number">1</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> []<span class="keyword">byte</span>(newDoc), err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="模板渲染"><a href="#模板渲染" class="headerlink" title="模板渲染"></a>模板渲染</h4><p>Markdown文件的数据只是页面展示里的文章内容。页面的布局，样式和页面的其他内容在模板中。我们需要做的就是将解析好的html数据放到模板中，然后渲染出我们想要的HTML。在这里我们只需要Go官方的”html/template”包就好了。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// generate index.html by template</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GenerateIndexFile</span><span class="params">(t *template.Template, data <span class="keyword">interface</span>&#123;&#125;, dir <span class="keyword">string</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> err := os.MkdirAll(dir, <span class="number">0777</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">"Create directory error:%v"</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	f, err := os.Create(dir + <span class="string">"/index.html"</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">"Creating file %s Err:%v"</span>, dir, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> f.Close()</span><br><span class="line">	writer := bufio.NewWriter(f)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err := t.Execute(writer, data); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">"Executing template Error: %v"</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err := writer.Flush(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">"Writing file Err: %v"</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时HTML文件就是显示的页面了。</p>
+<h4 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h4><p><b>静态博客的路由就是文件的目录路径</b>。我将生成的HTML文件命名为index.html，因为路径下存在index.html的话，web服务器会默认加载路径下名为index.html的文件。我以文章的Date作为文章的路径。</p>
+<p>首页就是在博客的根目录生成index.html，其内容就是将文章的列表放在index.tpl中渲染得到的数据。当首页展示不了太多的文章列表的时候，就需要分页。分页就是在根目录下建立page目录（这也就是page的路由），在page目录下建立index.html，内容同上。</p>
+<p>Tags和Category的原理是一样的。建立Tags目录，目录中建立index.html，内容为Tags的列表。每一个tag都建立一个目录，目录下都有一个index.html，其内容是此tag的文章列表。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>空想是不行的，要多学，多做，多练！<br>不能再再再再再再堕落了！！！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/yaml/" rel="tag"># yaml</a>
+          
+            <a href="/tags/静态博客/" rel="tag"># 静态博客</a>
+          
+            <a href="/tags/go/" rel="tag"># go</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/" rel="next" title="(翻译)writing a Static Blog Generator in Go">
+                <i class="fa fa-chevron-left"></i> (翻译)writing a Static Blog Generator in Go
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/02/(翻译)go-styleguide/" rel="prev" title="(翻译)go-styleguide">
+                (翻译)go-styleguide <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/07/26/Gugo！我自己写的简易静态博客生成器/" data-title="Gugo！我自己写的简易静态博客生成器" data-url="http://yoursite.com/2017/07/26/Gugo！我自己写的简易静态博客生成器/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="钱文翔">
+          <p class="site-author-name" itemprop="name">钱文翔</p>
+          <p class="site-description motion-element" itemprop="description">自理，自励，自立</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#缘起"><span class="nav-number">1.</span> <span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解析yaml数据"><span class="nav-number">2.1.</span> <span class="nav-text">解析yaml数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将markdown文件转成HTML文件"><span class="nav-number">2.2.</span> <span class="nav-text">将markdown文件转成HTML文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模板渲染"><span class="nav-number">2.3.</span> <span class="nav-text">模板渲染</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由"><span class="nav-number">2.4.</span> <span class="nav-text">路由</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">钱文翔</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"qwendy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

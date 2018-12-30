@@ -1,0 +1,974 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="翻译,风格,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="原文在这里： https://github.com/bahlo/go-styleguide/blob/master/README.md Go Styleguide Go的风格指南This serves as a supplement toEffective Go, based on years ofexperience and inspiration/ideas from conference t">
+<meta name="keywords" content="翻译,风格">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(翻译)go-styleguide">
+<meta property="og:url" content="http://yoursite.com/2017/08/02/(翻译)go-styleguide/index.html">
+<meta property="og:site_name" content="钱文翔的博客">
+<meta property="og:description" content="原文在这里： https://github.com/bahlo/go-styleguide/blob/master/README.md Go Styleguide Go的风格指南This serves as a supplement toEffective Go, based on years ofexperience and inspiration/ideas from conference t">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-07T12:11:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(翻译)go-styleguide">
+<meta name="twitter:description" content="原文在这里： https://github.com/bahlo/go-styleguide/blob/master/README.md Go Styleguide Go的风格指南This serves as a supplement toEffective Go, based on years ofexperience and inspiration/ideas from conference t">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/02/(翻译)go-styleguide/">
+
+
+
+
+
+  <title> (翻译)go-styleguide | 钱文翔的博客 </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">钱文翔的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/02/(翻译)go-styleguide/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                (翻译)go-styleguide
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-02T10:31:59+08:00">
+                2017-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go学习小记/" itemprop="url" rel="index">
+                    <span itemprop="name">Go学习小记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2017/08/02/(翻译)go-styleguide/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/08/02/(翻译)go-styleguide/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文在这里： <a href="https://github.com/bahlo/go-styleguide/blob/master/README.md" target="_blank" rel="noopener">https://github.com/bahlo/go-styleguide/blob/master/README.md</a></p>
+<h1 id="Go-Styleguide-Go的风格指南"><a href="#Go-Styleguide-Go的风格指南" class="headerlink" title="Go Styleguide Go的风格指南"></a>Go Styleguide Go的风格指南</h1><p>This serves as a supplement to<br><a href="https://golang.org/doc/effective_go.html" target="_blank" rel="noopener">Effective Go</a>, based on years of<br>experience and inspiration/ideas from conference talks.</p>
+<p>这篇文章作为<a href="https://golang.org/doc/effective_go.html" target="_blank" rel="noopener">Effective Go</a>的补充，这是根据多年的经验和来自会议讨论的灵感/想法来写的。</p>
+<a id="more"></a>
+<h2 id="Table-of-contents-目录"><a href="#Table-of-contents-目录" class="headerlink" title="Table of contents 目录"></a>Table of contents 目录</h2><ul>
+<li><a href="#add-context-to-errors">Add context to errors</a> 给errors添加上下文</li>
+<li><a href="#dependency-management">Dependency managemenet</a> 依赖管理<ul>
+<li><a href="#use-dep">Use dep</a> 使用dep</li>
+<li><a href="#use-semantic-versioning">Use Semantic Versioning</a> 使用Semantic Versioning</li>
+<li><a href="#avoid-gopkgin">Avoid gopkg.in</a> 避免使用gopkg.in</li>
+</ul>
+</li>
+<li><a href="#structured-logging">Structured logging</a> 结构化的日志</li>
+<li><a href="#avoid-global-variables">Avoid global variables</a> 避免全局变量</li>
+<li><a href="#testing">Testing</a> 测试<ul>
+<li><a href="#use-assert-libraries">Use assert-libraries</a> 使用assert-libraries</li>
+<li><a href="#use-table-driven-tests">Use table-driven tests</a> 使用table-driven测试</li>
+<li><a href="#avoid-mocks">Avoid mocks</a> 避免模拟</li>
+<li><a href="#avoid-deepequal">Avoid DeepEqual</a> 避免DeepEqual</li>
+<li><a href="#avoid-testing-unexported-funcs">Avoid testing unexported funcs</a> 避免测试不能外部使用的函数</li>
+</ul>
+</li>
+<li><a href="#use-linters">Use linters</a> 使用linters</li>
+<li><a href="#use-gofmt">Use gofmt</a> 使用gofmt</li>
+<li><a href="#avoid-side-effects">Avoid side effects</a> 避免使用side效果</li>
+<li><a href="#favour-pure-funcs">Favour pure funcs</a> 偏爱纯函数</li>
+<li><a href="#dont-over-interface">Don’t over-interface</a> 不要过度接口话</li>
+<li><a href="#dont-under-package">Don’t under-package</a> </li>
+<li><a href="#handle-signals">Handle signals</a> 处理信号</li>
+<li><a href="#divide-imports">Divide imports</a> 划分imports</li>
+<li><a href="#avoid-unadorned-return">Avoid unadorned return</a> 避免不终止的return</li>
+<li><a href="#use-package-comment">Use package comment</a> 使用包注释</li>
+<li><a href="#avoid-empty-interface">Avoid empty interface</a> 避免空接口</li>
+<li><a href="#main-first">Main first</a></li>
+<li><a href="#use-internal-packages">Use internal packages</a> 使用接口包</li>
+<li><a href="#avoid-helperutil">Avoid helper/util</a> 避免 helper/util</li>
+<li><a href="#embed-binary-data">Embed binary data</a> 内置二进制数据</li>
+<li><a href="#use-decorator-pattern">Use decorator pattern</a> 使用装饰模式</li>
+</ul>
+<h2 id="Add-context-to-errors-给errors添加上下文"><a href="#Add-context-to-errors-给errors添加上下文" class="headerlink" title="Add context to errors 给errors添加上下文"></a>Add context to errors 给errors添加上下文</h2><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">file, err := os.Open(<span class="string">"foo.txt"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Using the approach above can lead to unclear error messages because of missing<br>context.</p>
+<p>使用上面的方法会因为缺少上下文而产生不明确的错误消息。</p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"github.com/pkg/errors"</span> <span class="comment">// for example</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">file, err := os.Open(<span class="string">"foo.txt"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> errors.Wrap(err, <span class="string">"open foo.txt failed"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Wrapping errors with a custom message provides context as it gets propagated up<br>the stack. </p>
+<p>用通用的消息包裹错误信息从而提供上下文信息，可以在堆栈返回时传递此错误。</p>
+<p>This does not always make sense. </p>
+<p>这不总是有意义</p>
+<p>If you’re unsure if the context of a returned error is at all times sufficient,<br>wrap it.<br>Make sure the root error is still accessible somehow for type checking.</p>
+<p>如果您不确定返回的错误的上下文是否足够,那就加上上下文信息。<br>确保根错误通过某种方式进行类型检查时仍然有意义。</p>
+<h2 id="Dependency-management-依赖管理"><a href="#Dependency-management-依赖管理" class="headerlink" title="Dependency management 依赖管理"></a>Dependency management 依赖管理</h2><h3 id="Use-dep-使用dep"><a href="#Use-dep-使用dep" class="headerlink" title="Use dep 使用dep"></a>Use dep 使用dep</h3><p>Use <a href="https://github.com/golang/dep" target="_blank" rel="noopener">dep</a>, since it’s production ready and will<br>soon become part of the toolchain.</p>
+<p>使用<a href="https://github.com/golang/dep" target="_blank" rel="noopener">dep</a>,因为它已经是生成级工具并且很快就会成为工具链的一部分。<br>– <a href="https://youtu.be/5LtMb090AZI?t=27m57s" target="_blank" rel="noopener">Sam Boyer at GopherCon 2017</a></p>
+<h3 id="Use-Semantic-Versioning-使用Semantic-Versioning"><a href="#Use-Semantic-Versioning-使用Semantic-Versioning" class="headerlink" title="Use Semantic Versioning 使用Semantic Versioning"></a>Use Semantic Versioning 使用Semantic Versioning</h3><p>Since <code>dep</code> can handle versions, tag your packages using<br><a href="http://semver.org" target="_blank" rel="noopener">Semantic Versioning</a>.</p>
+<p>因为<code>dep</code>可以处理版本，所以使用<a href="http://semver.org" target="_blank" rel="noopener">Semantic Versioning</a>给你的包加上<br>标签</p>
+<h3 id="Avoid-gopkg-in-避免使用gopkg-in"><a href="#Avoid-gopkg-in-避免使用gopkg-in" class="headerlink" title="Avoid gopkg.in 避免使用gopkg.in"></a>Avoid gopkg.in 避免使用gopkg.in</h3><p>While <a href="http://labix.org/gopkg.in" target="_blank" rel="noopener">gopkg.in</a> is a great tool and was really<br>useful, it tags one version and is not meant to work with <code>dep</code>.<br>Prefer direct import and specify version in <code>Gopkg.toml</code>.</p>
+<p>尽管<a href="http://labix.org/gopkg.in" target="_blank" rel="noopener">gopkg.in</a>是非常好的工具并且真的很好用，但是它只标注一个版本<br>并且使用<code>dep</code>。应该直接import并在<code>Gopkg.toml</code>指定版本</p>
+<h2 id="Structured-logging-结构化logging"><a href="#Structured-logging-结构化logging" class="headerlink" title="Structured logging 结构化logging"></a>Structured logging 结构化logging</h2><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log.Printf(<span class="string">"Listening on :%d"</span>, port)</span><br><span class="line">http.ListenAndServe(fmt.Sprintf(<span class="string">":%d"</span>, port), <span class="literal">nil</span>)</span><br><span class="line"><span class="comment">// 2017/07/29 13:05:50 Listening on :80</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"github.com/uber-go/zap"</span> <span class="comment">// for example</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">logger, _ := zap.NewProduction()</span><br><span class="line"><span class="keyword">defer</span> logger.Sync()</span><br><span class="line">logger.Info(<span class="string">"Server started"</span>,</span><br><span class="line">	zap.Int(<span class="string">"port"</span>, port),</span><br><span class="line">	zap.String(<span class="string">"env"</span>, env),</span><br><span class="line">)</span><br><span class="line">http.ListenAndServe(fmt.Sprintf(<span class="string">":%d"</span>, port), <span class="literal">nil</span>)</span><br><span class="line"><span class="comment">// &#123;"level":"info","ts":1501326297.511464,"caller":"Desktop/structured.go:17","msg":"Server started","port":80,"env":"production"&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>This is a harmless example, but using structured logging makes debugging and log<br>parsing easier.</p>
+<p>这是没有损害的例子，但是使用结构化的日志可以使调试和解析log更简单</p>
+<h2 id="Avoid-global-variables-避免使用全局变量"><a href="#Avoid-global-variables-避免使用全局变量" class="headerlink" title="Avoid global variables 避免使用全局变量"></a>Avoid global variables 避免使用全局变量</h2><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> db *sql.DB</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	db = <span class="comment">// ...</span></span><br><span class="line">	http.HandleFunc(<span class="string">"/drop"</span>, DropHandler)</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DropHandler</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">	db.Exec(<span class="string">"DROP DATABASE prod"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Global variables make testing and readability hard and every method has access<br>to them (even those, that don’t need it).</p>
+<p>全局变量使得测试和可读性变得更加困难。每一个方法都能访问他（即使那些不需要它的方法）</p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	db := <span class="comment">// ...</span></span><br><span class="line">	http.HandleFunc(<span class="string">"/drop"</span>, DropHandler(db))</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DropHandler</span><span class="params">(db *sql.DB)</span> <span class="title">http</span>.<span class="title">HandleFunc</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span> <span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">		db.Exec(<span class="string">"DROP DATABASE prod"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Use higher-order functions instead of global variables to inject dependencies<br>accordingly.</p>
+<p>因此使用高阶函数取代全局变量来加入依赖性。</p>
+<h2 id="Testing-测试"><a href="#Testing-测试" class="headerlink" title="Testing 测试"></a>Testing 测试</h2><h3 id="Use-assert-libraries-使用assert-libraries"><a href="#Use-assert-libraries-使用assert-libraries" class="headerlink" title="Use assert-libraries 使用assert-libraries"></a>Use assert-libraries 使用assert-libraries</h3><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestAdd</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	actual := <span class="number">2</span> + <span class="number">2</span></span><br><span class="line">	expected := <span class="number">4</span></span><br><span class="line">	<span class="keyword">if</span> (actual != expected) &#123;</span><br><span class="line">		t.Errorf(<span class="string">"Expected %d, but got %d"</span>, expected, actual)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"github.com/stretchr/testify/assert"</span> <span class="comment">// for example</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestAdd</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	actual := <span class="number">2</span> + <span class="number">2</span></span><br><span class="line">	expected := <span class="number">4</span></span><br><span class="line">	assert.Equal(t, expected, actual)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Using assert libraries makes your tests more readable, requires less code and<br>provides consistent error output.</p>
+<p>使用断言库让你的测试更有可读性，代码量更少并且提供一致的错误输出。</p>
+<h3 id="Use-table-driven-tests-使用表驱动测试"><a href="#Use-table-driven-tests-使用表驱动测试" class="headerlink" title="Use table driven tests 使用表驱动测试"></a>Use table driven tests 使用表驱动测试</h3><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestAdd</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	assert.Equal(t, <span class="number">1</span>+<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">	assert.Equal(t, <span class="number">1</span>+<span class="number">-1</span>, <span class="number">0</span>)</span><br><span class="line">	assert.Equal(t, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">	assert.Equal(t, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>The above approach looks simpler, but it’s much harder to find a failing case,<br>especially when having hundreds of cases.</p>
+<p>以上的方法看起来更简单，但是它更难找到错误样例，尤其是在有几百个样例的时候。</p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestAdd</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	cases := []<span class="keyword">struct</span> &#123;</span><br><span class="line">		A, B, Expected <span class="keyword">int</span></span><br><span class="line">	&#125;&#123;</span><br><span class="line">		&#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>&#125;,</span><br><span class="line">		&#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">		&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>&#125;,</span><br><span class="line">		&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> _, tc := <span class="keyword">range</span> cases &#123;</span><br><span class="line">		t.Run(fmt.Sprintf(<span class="string">"%d + %d"</span>, tc.A, tc.B), <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">			assert.Equal(t, t.Expected, tc.A+tc.B)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Using table driven tests in combination with subtests gives you direct insight about which case is failing and which cases are tested.<br>– <a href="https://youtu.be/8hQG7QlcLBk?t=7m34s" target="_blank" rel="noopener">Mitchell Hashimoto at GopherCon 2017</a></p>
+<p>使用表驱动测试结合子测试让你直观的看到哪一个册书样例失败了，哪个测试样例正在执行</p>
+<h3 id="Avoid-mocks"><a href="#Avoid-mocks" class="headerlink" title="Avoid mocks"></a>Avoid mocks</h3><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestRun</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	mockConn := <span class="built_in">new</span>(MockConn)</span><br><span class="line">	run(mockConn)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestRun</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	ln, err := net.Listen(<span class="string">"tcp"</span>, <span class="string">"127.0.0.1:0"</span>)</span><br><span class="line">	t.AssertNil(t, err)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> server net.Conn</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">defer</span> ln.Close()</span><br><span class="line">		server, err := ln.Accept()</span><br><span class="line">		t.AssertNil(t, err)</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	client, err := net.Dial(<span class="string">"tcp"</span>, ln.Addr().String())</span><br><span class="line">	t.AssertNil(err)</span><br><span class="line"></span><br><span class="line">	run(client)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Only use mocks if not otherwise possible, favor real implementations. – <a href="https://youtu.be/8hQG7QlcLBk?t=26m51s" target="_blank" rel="noopener">Mitchell Hashimoto at GopherCon 2017</a></p>
+<p>只有在没有其他机会的时候使用mock，否则尽量使用真实实现。</p>
+<h3 id="Avoid-DeepEqual-避免DeepEqual"><a href="#Avoid-DeepEqual-避免DeepEqual" class="headerlink" title="Avoid DeepEqual 避免DeepEqual"></a>Avoid DeepEqual 避免DeepEqual</h3><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> myType <span class="keyword">struct</span> &#123;</span><br><span class="line">	id         <span class="keyword">int</span></span><br><span class="line">	name       <span class="keyword">string</span></span><br><span class="line">	irrelevant []<span class="keyword">byte</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSomething</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	actual := &amp;myType&#123;<span class="comment">/* ... */</span>&#125;</span><br><span class="line">	expected := &amp;myType&#123;<span class="comment">/* ... */</span>&#125;</span><br><span class="line">	assert.True(t, reflect.DeepEqual(expected, actual))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> myType <span class="keyword">struct</span> &#123;</span><br><span class="line">	id         <span class="keyword">int</span></span><br><span class="line">	name       <span class="keyword">string</span></span><br><span class="line">	irrelevant []<span class="keyword">byte</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *myType)</span> <span class="title">testString</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> fmt.Sprintf(<span class="string">"%d.%s"</span>, m.id, m.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSomething</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	actual := &amp;myType&#123;<span class="comment">/* ... */</span>&#125;</span><br><span class="line">	expected := &amp;myType&#123;<span class="comment">/* ... */</span>&#125;</span><br><span class="line">	<span class="keyword">if</span> actual.testString() != expected.testString() &#123;</span><br><span class="line">		t.Errorf(<span class="string">"Expected '%s', got '%s'"</span>, expected.testString(), actual.testString())</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// or assert.Equal(t, actual.testString(), expected.testString())</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Using <code>testString()</code> for comparing structs helps on complex structs with many fields that are not relevant for the equality check.<br>This approach only makes sense for very big or tree-like structs.<br>– <a href="https://youtu.be/8hQG7QlcLBk?t=30m45s" target="_blank" rel="noopener">Mitchell Hashimoto at GopherCon 2017</a></p>
+<p>使用 <code>testing()</code>来比较结构体，在结构体很复杂且结构体中的许多字段不用于比较相等的时候很有用。这个方法对于大结构体或者树状结构体很有用。</p>
+<h3 id="Avoid-testing-unexported-funcs-不要测试不可导出的函数"><a href="#Avoid-testing-unexported-funcs-不要测试不可导出的函数" class="headerlink" title="Avoid testing unexported funcs 不要测试不可导出的函数"></a>Avoid testing unexported funcs 不要测试不可导出的函数</h3><p>Only test unexported funcs if you can’t access a path via exported funcs. Since they are unexported, they are prone to change.</p>
+<p>只有当你不能通过导出的函数访问不可导出函数的时候，测试不可导出的函数。因为他们不能被导出，所有会改变。</p>
+<h2 id="Use-linters-使用linters"><a href="#Use-linters-使用linters" class="headerlink" title="Use linters 使用linters"></a>Use linters 使用linters</h2><p>Use linters (e.g. <a href="https://github.com/alecthomas/gometalinter" target="_blank" rel="noopener">gometalinter</a>) to<br>lint your projects before committing.</p>
+<p>在你的项目提交之前使用linters检查代码</p>
+<h2 id="Use-gofmt-使用gofmt"><a href="#Use-gofmt-使用gofmt" class="headerlink" title="Use gofmt 使用gofmt"></a>Use gofmt 使用gofmt</h2><p>Only commit gofmt’d files, use <code>-s</code> to simplify code.</p>
+<p>只提交gofmt后的文件，使用 -s 参数来简化代码。</p>
+<h2 id="Avoid-side-effects-避免side-effects"><a href="#Avoid-side-effects-避免side-effects" class="headerlink" title="Avoid side-effects 避免side-effects"></a>Avoid side-effects 避免side-effects</h2><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">	someStruct.Load()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Side effects are only okay in special cases (e.g. parsing flags in a cmd). If you find no other way, rethink and refactor.<br>Side effect只有在特殊情况下可以（例如在cmd中解析flags）。如果你想不到其他方法，重新想或者重构。</p>
+<h2 id="Favour-pure-funcs-尽量使用纯函数"><a href="#Favour-pure-funcs-尽量使用纯函数" class="headerlink" title="Favour pure funcs 尽量使用纯函数"></a>Favour pure funcs 尽量使用纯函数</h2><blockquote>
+<p>In computer programming, a function may be considered a pure function if both of the following statements about the function hold:</p>
+</blockquote>
+<p>在计算机编程中,如果函数包含以下的描述，则应该当做是一个纯函数：</p>
+<blockquote>
+<ol>
+<li>The function always evaluates the same result value given the same argument value(s). The function result value cannot depend on any hidden information or state that may change while program execution proceeds or between different executions of the program, nor can it depend on any external input from I/O devices.</li>
+</ol>
+</blockquote>
+<p>函数总是在传递相同的参数时得出相同的值。函数的结果不依赖于程序执行过程中的任何隐藏的信息或者状态，也不依赖来自I/O设备的外部的输入。</p>
+<blockquote>
+<ol start="2">
+<li>Evaluation of the result does not cause any semantically observable side effect or output, such as mutation of mutable objects or output to I/O devices.</li>
+</ol>
+</blockquote>
+<p>结果的计算不会导致任何明显的语义上的副作用或者输出，例如可变对象的变化或输出到输入/输出设备。</p>
+<p>– <a href="https://en.wikipedia.org/wiki/Pure_function" target="_blank" rel="noopener">Wikipedia</a></p>
+<p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MarshalAndWrite</span><span class="params">(some *Thing)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	b, err := json.Marshal(some)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> ioutil.WriteFile(<span class="string">"some.thing"</span>, b, <span class="number">0644</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Marshal is a pure func (even though useless)</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Marshal</span><span class="params">(some *Thing)</span> <span class="params">([]bytes, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> json.Marshal(some)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure></p>
+<p>This is obviously not possible at all times, but trying to make every possible func pure makes code more understandable and improves debugging.</p>
+<p>显然不能任何时候都这么写，但是尽量使每一个函数都是纯函数，让代码更加易懂且易调试。</p>
+<h2 id="Don’t-over-interface-不要过度接口化"><a href="#Don’t-over-interface-不要过度接口化" class="headerlink" title="Don’t over-interface 不要过度接口化"></a>Don’t over-interface 不要过度接口化</h2><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Server <span class="keyword">interface</span> &#123;</span><br><span class="line">	Serve() error</span><br><span class="line">	Some() <span class="keyword">int</span></span><br><span class="line">	Fields() <span class="keyword">float64</span></span><br><span class="line">	That() <span class="keyword">string</span></span><br><span class="line">	Are([]<span class="keyword">byte</span>) error</span><br><span class="line">	Not() []<span class="keyword">string</span></span><br><span class="line">	Necessary() error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">debug</span><span class="params">(srv Server)</span></span> &#123;</span><br><span class="line">	fmt.Println(srv.String())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">(srv Server)</span></span> &#123;</span><br><span class="line">	srv.Serve()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Server <span class="keyword">interface</span> &#123;</span><br><span class="line">	Serve() error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">debug</span><span class="params">(v fmt.Stringer)</span></span> &#123;</span><br><span class="line">	fmt.Println(v.String())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">(srv Server)</span></span> &#123;</span><br><span class="line">	srv.Serve()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Favour small interfaces and only expect the interfaces you need in your funcs.</p>
+<p>使用更小的接口且在你的函数中(的形参中)只要求你需要的接口.</p>
+<h2 id="Don’t-under-package"><a href="#Don’t-under-package" class="headerlink" title="Don’t under-package"></a>Don’t under-package</h2><p>Deleting or merging packages is fare more easier than splitting big ones up. When unsure if a package can be split, do it.</p>
+<p>删除或者合并包比从中分离包简单的多。当你不确定一个包是否能被分离，那你可以去去试试看</p>
+<h2 id="Handle-signals-处理信号"><a href="#Handle-signals-处理信号" class="headerlink" title="Handle signals 处理信号"></a>Handle signals 处理信号</h2><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		time.Sleep(<span class="number">1</span> * time.Second)</span><br><span class="line">		ioutil.WriteFile(<span class="string">"foo"</span>, []<span class="keyword">byte</span>(<span class="string">"bar"</span>), <span class="number">0644</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	logger := <span class="comment">// ...</span></span><br><span class="line">	sc := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal)</span><br><span class="line">	done := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> &#123;</span><br><span class="line">			<span class="keyword">select</span> &#123;</span><br><span class="line">			<span class="keyword">case</span> s := &lt;-sc:</span><br><span class="line">				logger.Info(<span class="string">"Received signal, stopping application"</span>,</span><br><span class="line">					zap.String(<span class="string">"signal"</span>, s.String()))</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line">			<span class="keyword">default</span>:</span><br><span class="line">				time.Sleep(<span class="number">1</span> * time.Second)</span><br><span class="line">				ioutil.WriteFile(<span class="string">"foo"</span>, []<span class="keyword">byte</span>(<span class="string">"bar"</span>), <span class="number">0644</span>)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		done &lt;- <span class="literal">true</span></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	signal.Notify(sc, os.Interrupt, os.Kill)</span><br><span class="line">	&lt;-done <span class="comment">// Wait for go-routine</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Handling signals allows us to gracefully stop our server, close open files and connections and therefore prevent file corruption among other things.</p>
+<p>处理信号可以使用安全的退出服务，关闭打开的文件和连接。防止因为其他事情损坏文件。</p>
+<h2 id="Divide-imports-分开-imports"><a href="#Divide-imports-分开-imports" class="headerlink" title="Divide imports 分开 imports"></a>Divide imports 分开 imports</h2><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"encoding/json"</span></span><br><span class="line">	<span class="string">"github.com/some/external/pkg"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"github.com/this-project/pkg/some-lib"</span></span><br><span class="line">	<span class="string">"os"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"encoding/json"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"os"</span></span><br><span class="line"></span><br><span class="line">	<span class="string">"github.com/some/external/pkg"</span></span><br><span class="line"></span><br><span class="line">	<span class="string">"github.com/this-project/pkg/some-lib"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>Dividing std, external and internal imports improves readability.</p>
+<p>将std，外部和内部imports分开，提高可读性</p>
+<h2 id="Avoid-unadorned-return-避免不加修饰的return"><a href="#Avoid-unadorned-return-避免不加修饰的return" class="headerlink" title="Avoid unadorned return 避免不加修饰的return"></a>Avoid unadorned return 避免不加修饰的return</h2><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">()</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">()</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	<span class="keyword">return</span> n, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Named returns are good for documentation, unadorned returns are bad for readability and error-prone.</p>
+<p>命名的返回值对于文档很有用，不加修饰的返回不利于可读性且易错</p>
+<h2 id="Use-package-comment-使用包注释"><a href="#Use-package-comment-使用包注释" class="headerlink" title="Use package comment 使用包注释"></a>Use package comment 使用包注释</h2><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sub</span><br></pre></td></tr></table></figure></p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sub <span class="comment">// import "github.com/my-package/pkg/sth/else/sub"</span></span><br></pre></td></tr></table></figure></p>
+<p>Adding the package comment adds context to the package and makes importing easy.</p>
+<p>包注释给包添加了上下文，并使用导入更加容易。</p>
+<h2 id="Avoid-empty-interface-避免空的接口"><a href="#Avoid-empty-interface-避免空的接口" class="headerlink" title="Avoid empty interface 避免空的接口"></a>Avoid empty interface 避免空的接口</h2><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">(foo <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Empty interfaces make code more complex and unclear, avoid them where you can.</p>
+<p>空接口是代码更加的复杂，能不使用就不使用。</p>
+<h2 id="Main-first"><a href="#Main-first" class="headerlink" title="Main first"></a>Main first</h2><p><strong>Don’t:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main <span class="comment">// import "github.com/me/my-project"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">someHelper</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">someOtherHelper</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Handler</span><span class="params">(w http.ResponseWriter, r *http.Reqeust)</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Do:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main <span class="comment">// import "github.com/me/my-project"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Handler</span><span class="params">(w http.ResponseWriter, r *http.Reqeust)</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">someHelper</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">someOtherHelper</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Putting <code>main()</code> first makes reading the file a lot more easier. Only the <code>init()</code> function should be above it.</p>
+<p>将main函数放在最开始，可以使你阅读这个文件更加简单。只有<code>init()</code>函数应该放在main上面。</p>
+<h2 id="Use-internal-packages-使用内部包"><a href="#Use-internal-packages-使用内部包" class="headerlink" title="Use internal packages 使用内部包"></a>Use internal packages 使用内部包</h2><p>If you’re creating a cmd, consider moving libraries to <code>internal/</code> to prevent import of unstable, changing packages.</p>
+<p>如果你创建一个cmd，尝试将包放到<code>internal/</code>中，避免这个不稳定且经常改动的包被其他地方import</p>
+<h2 id="Avoid-helper-util"><a href="#Avoid-helper-util" class="headerlink" title="Avoid helper/util"></a>Avoid helper/util</h2><p>Use clear names and try to avoid creating a <code>helper.go</code>, <code>utils.go</code> or even package.</p>
+<p>使用清楚的名字，尽量避免创建<code>helper.go</code>，<code>utils.go</code>这样的文件或者package</p>
+<h2 id="Embed-binary-data-内置二进制数据"><a href="#Embed-binary-data-内置二进制数据" class="headerlink" title="Embed binary data 内置二进制数据"></a>Embed binary data 内置二进制数据</h2><p>To enable single-binary deployments, use tools to add templates and other static<br>assets to your binary<br>(e.g. <a href="https://github.com/jteeuwen/go-bindata" target="_blank" rel="noopener">github.com/jteeuwen/go-bindata</a>).</p>
+<p>为了能够有单二进制文件部署，使用工具添加模板和其他静态文件资源到你的二进制文件中。</p>
+<h2 id="Use-decorator-pattern-使用装饰器"><a href="#Use-decorator-pattern-使用装饰器" class="headerlink" title="Use decorator pattern 使用装饰器"></a>Use decorator pattern 使用装饰器</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Config <span class="keyword">struct</span> &#123;</span><br><span class="line">	port    <span class="keyword">int</span></span><br><span class="line">	timeout time.Duration</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ServerOpt <span class="function"><span class="keyword">func</span><span class="params">(*Config)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">WithPort</span><span class="params">(port <span class="keyword">int</span>)</span> <span class="title">ServerOpt</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(cfg *Config)</span></span> &#123;</span><br><span class="line">		cfg.port = port</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithTimeout</span><span class="params">(timeout time.Duration)</span> <span class="title">ServerOpt</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(cfg *Config)</span></span> &#123;</span><br><span class="line">		cfg.timeout = timeout</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">startServer</span><span class="params">(opts ...ServerOpt)</span></span> &#123;</span><br><span class="line">	cfg := <span class="built_in">new</span>(Config)</span><br><span class="line">	<span class="keyword">for</span> _, fn := <span class="keyword">range</span> opts &#123;</span><br><span class="line">		fn(cfg)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">	startServer(</span><br><span class="line">		WithPort(<span class="number">8080</span>),</span><br><span class="line">		WithTimeout(<span class="number">1</span> * time.Second),</span><br><span class="line">	)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/tags/风格/" rel="tag"># 风格</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/26/Gugo！我自己写的简易静态博客生成器/" rel="next" title="Gugo！我自己写的简易静态博客生成器">
+                <i class="fa fa-chevron-left"></i> Gugo！我自己写的简易静态博客生成器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/07/(翻译)For Range Semantics/" rel="prev" title="(翻译)For Range Semantics">
+                (翻译)For Range Semantics <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/08/02/(翻译)go-styleguide/" data-title="(翻译)go-styleguide" data-url="http://yoursite.com/2017/08/02/(翻译)go-styleguide/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="钱文翔">
+          <p class="site-author-name" itemprop="name">钱文翔</p>
+          <p class="site-description motion-element" itemprop="description">自理，自励，自立</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go-Styleguide-Go的风格指南"><span class="nav-number">1.</span> <span class="nav-text">Go Styleguide Go的风格指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Table-of-contents-目录"><span class="nav-number">1.1.</span> <span class="nav-text">Table of contents 目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Add-context-to-errors-给errors添加上下文"><span class="nav-number">1.2.</span> <span class="nav-text">Add context to errors 给errors添加上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dependency-management-依赖管理"><span class="nav-number">1.3.</span> <span class="nav-text">Dependency management 依赖管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-dep-使用dep"><span class="nav-number">1.3.1.</span> <span class="nav-text">Use dep 使用dep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-Semantic-Versioning-使用Semantic-Versioning"><span class="nav-number">1.3.2.</span> <span class="nav-text">Use Semantic Versioning 使用Semantic Versioning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Avoid-gopkg-in-避免使用gopkg-in"><span class="nav-number">1.3.3.</span> <span class="nav-text">Avoid gopkg.in 避免使用gopkg.in</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Structured-logging-结构化logging"><span class="nav-number">1.4.</span> <span class="nav-text">Structured logging 结构化logging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Avoid-global-variables-避免使用全局变量"><span class="nav-number">1.5.</span> <span class="nav-text">Avoid global variables 避免使用全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing-测试"><span class="nav-number">1.6.</span> <span class="nav-text">Testing 测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-assert-libraries-使用assert-libraries"><span class="nav-number">1.6.1.</span> <span class="nav-text">Use assert-libraries 使用assert-libraries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-table-driven-tests-使用表驱动测试"><span class="nav-number">1.6.2.</span> <span class="nav-text">Use table driven tests 使用表驱动测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Avoid-mocks"><span class="nav-number">1.6.3.</span> <span class="nav-text">Avoid mocks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Avoid-DeepEqual-避免DeepEqual"><span class="nav-number">1.6.4.</span> <span class="nav-text">Avoid DeepEqual 避免DeepEqual</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Avoid-testing-unexported-funcs-不要测试不可导出的函数"><span class="nav-number">1.6.5.</span> <span class="nav-text">Avoid testing unexported funcs 不要测试不可导出的函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Use-linters-使用linters"><span class="nav-number">1.7.</span> <span class="nav-text">Use linters 使用linters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Use-gofmt-使用gofmt"><span class="nav-number">1.8.</span> <span class="nav-text">Use gofmt 使用gofmt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Avoid-side-effects-避免side-effects"><span class="nav-number">1.9.</span> <span class="nav-text">Avoid side-effects 避免side-effects</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Favour-pure-funcs-尽量使用纯函数"><span class="nav-number">1.10.</span> <span class="nav-text">Favour pure funcs 尽量使用纯函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Don’t-over-interface-不要过度接口化"><span class="nav-number">1.11.</span> <span class="nav-text">Don’t over-interface 不要过度接口化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Don’t-under-package"><span class="nav-number">1.12.</span> <span class="nav-text">Don’t under-package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handle-signals-处理信号"><span class="nav-number">1.13.</span> <span class="nav-text">Handle signals 处理信号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Divide-imports-分开-imports"><span class="nav-number">1.14.</span> <span class="nav-text">Divide imports 分开 imports</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Avoid-unadorned-return-避免不加修饰的return"><span class="nav-number">1.15.</span> <span class="nav-text">Avoid unadorned return 避免不加修饰的return</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Use-package-comment-使用包注释"><span class="nav-number">1.16.</span> <span class="nav-text">Use package comment 使用包注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Avoid-empty-interface-避免空的接口"><span class="nav-number">1.17.</span> <span class="nav-text">Avoid empty interface 避免空的接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-first"><span class="nav-number">1.18.</span> <span class="nav-text">Main first</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Use-internal-packages-使用内部包"><span class="nav-number">1.19.</span> <span class="nav-text">Use internal packages 使用内部包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Avoid-helper-util"><span class="nav-number">1.20.</span> <span class="nav-text">Avoid helper/util</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Embed-binary-data-内置二进制数据"><span class="nav-number">1.21.</span> <span class="nav-text">Embed binary data 内置二进制数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Use-decorator-pattern-使用装饰器"><span class="nav-number">1.22.</span> <span class="nav-text">Use decorator pattern 使用装饰器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">钱文翔</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"qwendy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

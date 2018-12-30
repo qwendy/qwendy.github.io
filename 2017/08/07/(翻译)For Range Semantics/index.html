@@ -1,0 +1,897 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="翻译,语法,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="原文是《For Range Semantics》 序章为了更好的理解这篇文章中展现的内容，你应该先阅读以下文章： 四篇文章的索引：  Language Mechanics On Stacks And Pointers  Language Mechanics On Escape Analysis  Language Mechanics On Memory Profiling  Design Phil">
+<meta name="keywords" content="翻译,语法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(翻译)For Range Semantics">
+<meta property="og:url" content="http://yoursite.com/2017/08/07/(翻译)For Range Semantics/index.html">
+<meta property="og:site_name" content="钱文翔的博客">
+<meta property="og:description" content="原文是《For Range Semantics》 序章为了更好的理解这篇文章中展现的内容，你应该先阅读以下文章： 四篇文章的索引：  Language Mechanics On Stacks And Pointers  Language Mechanics On Escape Analysis  Language Mechanics On Memory Profiling  Design Phil">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-26T01:49:23.951Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(翻译)For Range Semantics">
+<meta name="twitter:description" content="原文是《For Range Semantics》 序章为了更好的理解这篇文章中展现的内容，你应该先阅读以下文章： 四篇文章的索引：  Language Mechanics On Stacks And Pointers  Language Mechanics On Escape Analysis  Language Mechanics On Memory Profiling  Design Phil">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/07/(翻译)For Range Semantics/">
+
+
+
+
+
+  <title> (翻译)For Range Semantics | 钱文翔的博客 </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">钱文翔的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/07/(翻译)For Range Semantics/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                (翻译)For Range Semantics
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-07T20:28:29+08:00">
+                2017-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go学习小记/" itemprop="url" rel="index">
+                    <span itemprop="name">Go学习小记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2017/08/07/(翻译)For Range Semantics/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/08/07/(翻译)For Range Semantics/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文是<a href="https://www.goinggo.net/2017/06/for-range-semantics.html" target="_blank" rel="noopener">《For Range Semantics》</a></p>
+<h3 id="序章"><a href="#序章" class="headerlink" title="序章"></a>序章</h3><p>为了更好的理解这篇文章中展现的内容，你应该先阅读以下文章：</p>
+<p>四篇文章的索引：</p>
+<ol>
+<li><p><a href="https://www.goinggo.net/2017/05/language-mechanics-on-stacks-and-pointers.html" target="_blank" rel="noopener">Language Mechanics On Stacks And Pointers</a></p>
+</li>
+<li><p><a href="https://www.goinggo.net/2017/05/language-mechanics-on-escape-analysis.html" target="_blank" rel="noopener">Language Mechanics On Escape Analysis</a></p>
+</li>
+<li><p><a href="https://www.goinggo.net/2017/06/language-mechanics-on-memory-profiling.html" target="_blank" rel="noopener">Language Mechanics On Memory Profiling</a></p>
+</li>
+<li><p><a href="https://www.goinggo.net/2017/06/design-philosophy-on-data-and-semantics.html" target="_blank" rel="noopener">Design Philosophy On Data And Semantics</a></p>
+</li>
+</ol>
+<p>值的概念和指针的语义在 Go 中无处不在。正如之前的文章中说的那样，语义一致性对于完整性和可读性至关重要。它让开发人员，随着代码库的增长，保持一个强大的代码库的心理模型。它可以尽可能减少错误，副作用和未知的表现。</p>
+<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>这这篇文章中，我将会探索在 Go 中 for range 语法块同时提供值和指针两种语义形式。我会教你语义的使用并展示给你这个语义如何衍生至更深层次。然后，我会使用一个简单的例子，来展示使用这些语义会出现的错误。</p>
+<a id="more"></a>
+<h3 id="语言技巧"><a href="#语言技巧" class="headerlink" title="语言技巧"></a>语言技巧</h3><p>用这段代码来展示 for range 循环的 value 语义格式。</p>
+<p><a href="https://play.golang.org/p/_CWCAF6ge3" target="_blank" rel="noopener">https://play.golang.org/p/_CWCAF6ge3</a></p>
+<p><code>Listing1</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">01</span> <span class="keyword">package</span> main</span><br><span class="line"><span class="number">02</span></span><br><span class="line"><span class="number">03</span> <span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="number">04</span></span><br><span class="line"><span class="number">05</span> <span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line"><span class="number">06</span>     name <span class="keyword">string</span></span><br><span class="line"><span class="number">07</span>     email <span class="keyword">string</span></span><br><span class="line"><span class="number">08</span> &#125;</span><br><span class="line"><span class="number">09</span></span><br><span class="line"><span class="number">10</span> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="number">11</span>     users := []user&#123;</span><br><span class="line"><span class="number">12</span>         &#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;,</span><br><span class="line"><span class="number">13</span>         &#123;<span class="string">"Lisa"</span>, <span class="string">"lisa@email.com"</span>&#125;,</span><br><span class="line"><span class="number">14</span>         &#123;<span class="string">"Nancy"</span>, <span class="string">"nancy@email.com"</span>&#125;,</span><br><span class="line"><span class="number">15</span>         &#123;<span class="string">"Paul"</span>, <span class="string">"paul@email.com"</span>&#125;,</span><br><span class="line"><span class="number">16</span>     &#125;</span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span>     <span class="keyword">for</span> i, u := <span class="keyword">range</span> users &#123;</span><br><span class="line"><span class="number">19</span>         fmt.Println(i, u)</span><br><span class="line"><span class="number">20</span>     &#125;</span><br><span class="line"><span class="number">21</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>在图 1 中，程序声明了 user 类型，创建了四个 user 值并且列出每一个 user 的信息。18 行的 for range 循环使用 value 语义。因为在每一个迭代中，创建切片中的原始的 user 值的拷贝，并在循环中操作这个拷贝值。实际上，调用 Println 创建了循环体中的第二个拷贝。如果要将值语义用于 user 值，这就是你想要的。</p>
+<p>如果你想要使用指针，那么 for range 循环将会是这样。</p>
+<p><code>Listing 2</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">18</span>     <span class="keyword">for</span> i := <span class="keyword">range</span> users &#123;</span><br><span class="line"><span class="number">19</span>         fmt.Println(i, users[i])</span><br><span class="line"><span class="number">20</span>     &#125;</span><br></pre></td></tr></table></figure>
+<p>现在循环已经修改成指针语义。循环中的代码不再操作它自己的复制，而是操作存在切片中的原始的 user 值。但是调用 Println 仍然使用值语义，传递的是一个拷贝。</p>
+<p>为了修正这个需求，我们最后修改一下。</p>
+<p><code>Listing 3</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">18</span>     <span class="keyword">for</span> i := <span class="keyword">range</span> users &#123;</span><br><span class="line"><span class="number">19</span>         fmt.Println(i, &amp;users[i])</span><br><span class="line"><span class="number">20</span>     &#125;</span><br></pre></td></tr></table></figure>
+<p>现在就是始终使用的 user 数据的指针技巧了。</p>
+<p>Listing4 一步步展示了值和指针语义作为参考</p>
+<p><code>Listing 4</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">       <span class="comment">// Value semantics.           // Pointer semantics.</span></span><br><span class="line"><span class="number">18</span>     <span class="keyword">for</span> i, u := <span class="keyword">range</span> users &#123;     <span class="keyword">for</span> i := <span class="keyword">range</span> users &#123;</span><br><span class="line"><span class="number">19</span>         fmt.Println(i, u)             fmt.Println(i, &amp;users[i])</span><br><span class="line"><span class="number">20</span>     &#125;                             &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="更深层次的技巧"><a href="#更深层次的技巧" class="headerlink" title="更深层次的技巧"></a>更深层次的技巧</h3><p>比这更深层次的语言技巧。让我们看一下下面 listing5 的程序。这段程序初始化了字符串数组，迭代这些字符串并且每次迭代的时候都改变 index 为 1 的字符串的值。</p>
+<p><code>Listing 5</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">01</span> <span class="keyword">package</span> main</span><br><span class="line"><span class="number">02</span></span><br><span class="line"><span class="number">03</span> <span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="number">04</span></span><br><span class="line"><span class="number">05</span> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="number">06</span>     five := [<span class="number">5</span>]<span class="keyword">string</span>&#123;<span class="string">"Annie"</span>, <span class="string">"Betty"</span>, <span class="string">"Charley"</span>, <span class="string">"Doug"</span>, <span class="string">"Edward"</span>&#125;</span><br><span class="line"><span class="number">07</span>     fmt.Printf(<span class="string">"Bfr[%s] : "</span>, five[<span class="number">1</span>])</span><br><span class="line"><span class="number">08</span></span><br><span class="line"><span class="number">09</span>     <span class="keyword">for</span> i := <span class="keyword">range</span> five &#123;</span><br><span class="line"><span class="number">10</span>         five[<span class="number">1</span>] = <span class="string">"Jack"</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span>         <span class="keyword">if</span> i == <span class="number">1</span> &#123;</span><br><span class="line"><span class="number">13</span>             fmt.Printf(<span class="string">"Aft[%s]\n"</span>, five[<span class="number">1</span>])</span><br><span class="line"><span class="number">14</span>         &#125;</span><br><span class="line"><span class="number">15</span>     &#125;</span><br><span class="line"><span class="number">16</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>这段程序将会输出什么呢？</p>
+<p><code>Listing 6</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Bfr[Betty] : Aft[Jack]</span><br></pre></td></tr></table></figure>
+<p>正如你所希望的那样，第 10 行代码已经改变了 index 为 1 的字符串的值，你可以从输出的结果中看到。这段代码使用了 for range 的指针语义版本。下面的代码将会使用 for range 循环的值语义版本。</p>
+<p><a href="https://play.golang.org/p/opSsIGtNU1" target="_blank" rel="noopener">https://play.golang.org/p/opSsIGtNU1</a></p>
+<p><code>Listing 7</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">01</span> <span class="keyword">package</span> main</span><br><span class="line"><span class="number">02</span></span><br><span class="line"><span class="number">03</span> <span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="number">04</span></span><br><span class="line"><span class="number">05</span> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="number">06</span>     five := [<span class="number">5</span>]<span class="keyword">string</span>&#123;<span class="string">"Annie"</span>, <span class="string">"Betty"</span>, <span class="string">"Charley"</span>, <span class="string">"Doug"</span>, <span class="string">"Edward"</span>&#125;</span><br><span class="line"><span class="number">07</span>     fmt.Printf(<span class="string">"Bfr[%s] : "</span>, five[<span class="number">1</span>])</span><br><span class="line"><span class="number">08</span></span><br><span class="line"><span class="number">09</span>     <span class="keyword">for</span> i, v := <span class="keyword">range</span> five &#123;</span><br><span class="line"><span class="number">10</span>         five[<span class="number">1</span>] = <span class="string">"Jack"</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span>         <span class="keyword">if</span> i == <span class="number">1</span> &#123;</span><br><span class="line"><span class="number">13</span>             fmt.Printf(<span class="string">"v[%s]\n"</span>, v)</span><br><span class="line"><span class="number">14</span>         &#125;</span><br><span class="line"><span class="number">15</span>     &#125;</span><br><span class="line"><span class="number">16</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>在每一个循环的迭代中，代码再次改变了 index 1 的字符串的值，但是这次输出的结果却不一样。</p>
+<p><code>Listing 8</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Bfr[Betty] : v[Betty]</span><br></pre></td></tr></table></figure>
+<p>你可以看到这次 for range 确实使用了值语义。for range 迭代了它自己的对于数组的拷贝。这就是为什么改变的内容在输出的结果中看不到。</p>
+<p>当使用值语义格式迭代切片的时候，就会得到切片的头部的拷贝。这就是为什么我 listing 9 不会产生 panic 的原因。</p>
+<p><a href="https://play.golang.org/p/OXhdsneBec" target="_blank" rel="noopener">https://play.golang.org/p/OXhdsneBec</a></p>
+<p><code>Listing 9</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">01</span> <span class="keyword">package</span> main</span><br><span class="line"><span class="number">02</span></span><br><span class="line"><span class="number">03</span> <span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="number">04</span></span><br><span class="line"><span class="number">05</span> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="number">06</span>     five := []<span class="keyword">string</span>&#123;<span class="string">"Annie"</span>, <span class="string">"Betty"</span>, <span class="string">"Charley"</span>, <span class="string">"Doug"</span>, <span class="string">"Edward"</span>&#125;</span><br><span class="line"><span class="number">07</span></span><br><span class="line"><span class="number">08</span>     <span class="keyword">for</span> _, v := <span class="keyword">range</span> five &#123;</span><br><span class="line"><span class="number">09</span>         five = five[:<span class="number">2</span>]</span><br><span class="line"><span class="number">10</span>         fmt.Printf(<span class="string">"v[%s]\n"</span>, v)</span><br><span class="line"><span class="number">11</span>     &#125;</span><br><span class="line"><span class="number">12</span> &#125;</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">v[Annie]</span><br><span class="line">v[Betty]</span><br><span class="line">v[Charley]</span><br><span class="line">v[Doug]</span><br><span class="line">v[Edward]</span><br></pre></td></tr></table></figure>
+<p>如果你想到 09 行你就会知道，虽然切片在循环中已经被缩短到长度为 2，但是循环值操作属于它自己的切片的拷贝。这让循环可以使用原先长度来迭代因为备份的数组仍是完整的。</p>
+<p>如果代码使用 for range 的指针语义格式，那么这个代码会产生 panic。</p>
+<p><a href="https://play.golang.org/p/k5a73PHaka" target="_blank" rel="noopener">https://play.golang.org/p/k5a73PHaka</a></p>
+<p><code>Listing 10</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">01</span> <span class="keyword">package</span> main</span><br><span class="line"><span class="number">02</span></span><br><span class="line"><span class="number">03</span> <span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="number">04</span></span><br><span class="line"><span class="number">05</span> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="number">06</span>     five := []<span class="keyword">string</span>&#123;<span class="string">"Annie"</span>, <span class="string">"Betty"</span>, <span class="string">"Charley"</span>, <span class="string">"Doug"</span>, <span class="string">"Edward"</span>&#125;</span><br><span class="line"><span class="number">07</span></span><br><span class="line"><span class="number">08</span>     <span class="keyword">for</span> i := <span class="keyword">range</span> five &#123;</span><br><span class="line"><span class="number">09</span>         five = five[:<span class="number">2</span>]</span><br><span class="line"><span class="number">10</span>         fmt.Printf(<span class="string">"v[%s]\n"</span>, five[i])</span><br><span class="line"><span class="number">11</span>     &#125;</span><br><span class="line"><span class="number">12</span> &#125;</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">v[Annie]</span><br><span class="line">v[Betty]</span><br><span class="line"><span class="built_in">panic</span>: runtime error: index out of <span class="keyword">range</span></span><br><span class="line"></span><br><span class="line">goroutine <span class="number">1</span> [running]:</span><br><span class="line">main.main()</span><br><span class="line">	/tmp/sandbox688667612/main.<span class="keyword">go</span>:<span class="number">10</span> +<span class="number">0x140</span></span><br></pre></td></tr></table></figure>
+<p>for range 在迭代前就获取了切片的长度，但是在循环的时候长度改变了。在第三次迭代的时候，循环体尝试访问与切片长度关联不上元素。</p>
+<h3 id="混合语义"><a href="#混合语义" class="headerlink" title="混合语义"></a>混合语义</h3><p>下面展示一个完整的错误例子。这段代码混合使用 user 类型的语义，并引起错误。</p>
+<p><a href="https://play.golang.org/p/L_WmUkDYFJ" target="_blank" rel="noopener">https://play.golang.org/p/L_WmUkDYFJ</a></p>
+<p><code>Listing 11</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">01</span> <span class="keyword">package</span> main</span><br><span class="line"><span class="number">02</span></span><br><span class="line"><span class="number">03</span> <span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="number">04</span></span><br><span class="line"><span class="number">05</span> <span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line"><span class="number">06</span>     name  <span class="keyword">string</span></span><br><span class="line"><span class="number">07</span>     likes <span class="keyword">int</span></span><br><span class="line"><span class="number">08</span> &#125;</span><br><span class="line"><span class="number">09</span></span><br><span class="line"><span class="number">10</span> <span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">notify</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="number">11</span>     fmt.Printf(<span class="string">"%s has %d likes\n"</span>, u.name, u.likes)</span><br><span class="line"><span class="number">12</span> &#125;</span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span> <span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">addLike</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="number">15</span>     u.likes++</span><br><span class="line"><span class="number">16</span> &#125;</span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="number">19</span>     users := []user&#123;</span><br><span class="line"><span class="number">20</span>         &#123;name: <span class="string">"bill"</span>&#125;,</span><br><span class="line"><span class="number">21</span>         &#123;name: <span class="string">"lisa"</span>&#125;,</span><br><span class="line"><span class="number">22</span>     &#125;</span><br><span class="line"><span class="number">23</span></span><br><span class="line"><span class="number">24</span>     <span class="keyword">for</span> _, u := <span class="keyword">range</span> users &#123;</span><br><span class="line"><span class="number">25</span>         u.addLike()</span><br><span class="line"><span class="number">26</span>     &#125;</span><br><span class="line"><span class="number">27</span></span><br><span class="line"><span class="number">28</span>     <span class="keyword">for</span> _, u := <span class="keyword">range</span> users &#123;</span><br><span class="line"><span class="number">29</span>         u.notify()</span><br><span class="line"><span class="number">30</span>     &#125;</span><br><span class="line"><span class="number">31</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>这个例子不是很做作。在 05 行声明了 user 类型，选择指针语义实现 user 类型的方法集。在 main 程序中，for range 循环体使用了值语义，并且每一个 user 都使用了 addlock()方法。第二个循环体用来 notify 每一个 user，同样使用了值语义。</p>
+<p><code>Listing 12</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bill has <span class="number">0</span> likes</span><br><span class="line">lisa has <span class="number">0</span> likes</span><br></pre></td></tr></table></figure>
+<p>输出表明没有 like 增加。我一直强调你应该为给定类型选择一个语义，并坚持使用该类型的数据做所有事情。</p>
+<p>下面是代码如何注意与 user 类型的指针语义保持一致的方法。</p>
+<p><a href="https://play.golang.org/p/GwAnyBNqPz" target="_blank" rel="noopener">https://play.golang.org/p/GwAnyBNqPz</a></p>
+<p><code>Listing 13</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">01</span> <span class="keyword">package</span> main</span><br><span class="line"><span class="number">02</span></span><br><span class="line"><span class="number">03</span> <span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="number">04</span></span><br><span class="line"><span class="number">05</span> <span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line"><span class="number">06</span>     name  <span class="keyword">string</span></span><br><span class="line"><span class="number">07</span>     likes <span class="keyword">int</span></span><br><span class="line"><span class="number">08</span> &#125;</span><br><span class="line"><span class="number">09</span></span><br><span class="line"><span class="number">10</span> <span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">notify</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="number">11</span>     fmt.Printf(<span class="string">"%s has %d likes\n"</span>, u.name, u.likes)</span><br><span class="line"><span class="number">12</span> &#125;</span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span> <span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">addLike</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="number">15</span>     u.likes++</span><br><span class="line"><span class="number">16</span> &#125;</span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="number">19</span>     users := []user&#123;</span><br><span class="line"><span class="number">20</span>         &#123;name: <span class="string">"bill"</span>&#125;,</span><br><span class="line"><span class="number">21</span>         &#123;name: <span class="string">"lisa"</span>&#125;,</span><br><span class="line"><span class="number">22</span>     &#125;</span><br><span class="line"><span class="number">23</span></span><br><span class="line"><span class="number">24</span>     <span class="keyword">for</span> i := <span class="keyword">range</span> users &#123;</span><br><span class="line"><span class="number">25</span>         users[i].addLike()</span><br><span class="line"><span class="number">26</span>     &#125;</span><br><span class="line"><span class="number">27</span></span><br><span class="line"><span class="number">28</span>     <span class="keyword">for</span> i := <span class="keyword">range</span> users &#123;</span><br><span class="line"><span class="number">29</span>         users[i].notify()</span><br><span class="line"><span class="number">30</span>     &#125;</span><br><span class="line"><span class="number">31</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line">bill has <span class="number">1</span> likes</span><br><span class="line">lisa has <span class="number">1</span> likes</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>值和指针语义是 Go 语言编程的很大一部分，正如我所展示的，整合进 for range 循环中。当使用 for range 循环的时候，确定你使用了你迭代的给定类型的正确的格式。尽量不要混合使用语义，如果你不注意的话，使用 for range 的时候很容易这么做。</p>
+<p>语言赋予你这种选择语义的能力，并能始终如一地工作。这是你想要充分利用的东西。我想让你决定每种类型使用什么语义并保持一致。你对一个数据的语义越一致，您的代码库就会越好。如果您有一个很好的理由来改变语义，那么就将其广泛地记录下来。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/tags/语法/" rel="tag"># 语法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/02/(翻译)go-styleguide/" rel="next" title="(翻译)go-styleguide">
+                <i class="fa fa-chevron-left"></i> (翻译)go-styleguide
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/20/使用gRPC交互/" rel="prev" title="使用gRPC交互">
+                使用gRPC交互 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/08/07/(翻译)For Range Semantics/" data-title="(翻译)For Range Semantics" data-url="http://yoursite.com/2017/08/07/(翻译)For Range Semantics/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="钱文翔">
+          <p class="site-author-name" itemprop="name">钱文翔</p>
+          <p class="site-description motion-element" itemprop="description">自理，自励，自立</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#序章"><span class="nav-number">1.</span> <span class="nav-text">序章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引言"><span class="nav-number">2.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语言技巧"><span class="nav-number">3.</span> <span class="nav-text">语言技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更深层次的技巧"><span class="nav-number">4.</span> <span class="nav-text">更深层次的技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混合语义"><span class="nav-number">5.</span> <span class="nav-text">混合语义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">钱文翔</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"qwendy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

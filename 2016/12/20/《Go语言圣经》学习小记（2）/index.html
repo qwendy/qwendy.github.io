@@ -1,0 +1,880 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="笔记,Go语言圣经,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="函数函数声明在函数体中，函数的形参作为局部变量，被初始化为调用者提供的值。函数的形参和有名返回值作为函数最外层的局部变量，被存储在相同的词法块中。实参通过值的方式传递，因此函数的形参是实参的拷贝。对形参进行修改不会影响实参。但是，如果实参包括引用类型，如指针，slice(切片)、map、function、channel等类型，实参可能会由于函数的简介引用被修改。没有函数体的函数声明，这表示该函数不">
+<meta name="keywords" content="笔记,Go语言圣经">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Go语言圣经》学习小记（2）">
+<meta property="og:url" content="http://yoursite.com/2016/12/20/《Go语言圣经》学习小记（2）/index.html">
+<meta property="og:site_name" content="钱文翔的博客">
+<meta property="og:description" content="函数函数声明在函数体中，函数的形参作为局部变量，被初始化为调用者提供的值。函数的形参和有名返回值作为函数最外层的局部变量，被存储在相同的词法块中。实参通过值的方式传递，因此函数的形参是实参的拷贝。对形参进行修改不会影响实参。但是，如果实参包括引用类型，如指针，slice(切片)、map、function、channel等类型，实参可能会由于函数的简介引用被修改。没有函数体的函数声明，这表示该函数不">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-07T12:11:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Go语言圣经》学习小记（2）">
+<meta name="twitter:description" content="函数函数声明在函数体中，函数的形参作为局部变量，被初始化为调用者提供的值。函数的形参和有名返回值作为函数最外层的局部变量，被存储在相同的词法块中。实参通过值的方式传递，因此函数的形参是实参的拷贝。对形参进行修改不会影响实参。但是，如果实参包括引用类型，如指针，slice(切片)、map、function、channel等类型，实参可能会由于函数的简介引用被修改。没有函数体的函数声明，这表示该函数不">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/20/《Go语言圣经》学习小记（2）/">
+
+
+
+
+
+  <title> 《Go语言圣经》学习小记（2） | 钱文翔的博客 </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">钱文翔的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/20/《Go语言圣经》学习小记（2）/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                《Go语言圣经》学习小记（2）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-20T19:45:22+08:00">
+                2016-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go学习小记/" itemprop="url" rel="index">
+                    <span itemprop="name">Go学习小记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2016/12/20/《Go语言圣经》学习小记（2）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/20/《Go语言圣经》学习小记（2）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><p>在函数体中，函数的形参作为局部变量，被初始化为调用者提供的值。函数的形参和有名返回值作为<strong>函数最外层的局部变量</strong>，被存储在相同的词法块中。<br>实参通过值的方式传递，因此函数的形参是实参的拷贝。对形参进行修改不会影响实参。但是，如果实参包括引用类型，如指针，slice(切片)、map、<strong>function</strong>、channel等类型，实参可能会由于函数的简介引用被修改。<br><strong>没有函数体的函数声明，这表示该函数不是以Go实现的。</strong>这样的声明定义了函数标识符。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> math</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sin</span><span class="params">(x <span class="keyword">float64</span>)</span> <span class="title">float</span> //<span class="title">implemented</span> <span class="title">in</span> <span class="title">assembly</span> <span class="title">language</span></span></span><br></pre></td></tr></table></figure></p>
+<p>注：此代码来自官方的math包中<br><a id="more"></a></p>
+<h3 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h3><p>在Go中，函数运行失败时会返回错误信息，这些错误信息被认为是一种预期的值而非异常（exception）。</p>
+<h3 id="函数值"><a href="#函数值" class="headerlink" title="函数值"></a>函数值</h3><p>在Go中，函数被看作第一类值（first-class values）：函数像其他值一样，拥有类型，可以被赋值给其他变量，传递给函数，从函数返回。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">square</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123; <span class="keyword">return</span> n * n &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">negative</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123; <span class="keyword">return</span> -n &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">product</span><span class="params">(m, n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123; <span class="keyword">return</span> m * n &#125;</span><br><span class="line">f := square</span><br><span class="line">fmt.Println(f(<span class="number">3</span>)) <span class="comment">// "9"</span></span><br><span class="line">f = negative</span><br><span class="line">fmt.Println(f(<span class="number">3</span>)) <span class="comment">// "-3"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, f) <span class="comment">// "func(int) int"</span></span><br><span class="line">f = product <span class="comment">// compile error: can't assign func(int, int) int to func(int) int</span></span><br></pre></td></tr></table></figure></p>
+<p>函数类型的零值是nil。调用值为nil的函数值会引起panic错误<br>函数值可以与nil比较<br>但是函数值之间是不可比较的，也不能用函数值作为map的key。</p>
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><p>拥有函数名的函数只能在包级语法块中被声明，通过函数字面量（function literal），我们可绕过这一限制，在任何表达式中表示一个函数值。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> visitAll <span class="function"><span class="keyword">func</span><span class="params">(items []<span class="keyword">string</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">visitAll</span> = <span class="title">func</span><span class="params">(items []<span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> _, item := <span class="keyword">range</span> items &#123;</span><br><span class="line">		<span class="keyword">if</span> !seen[item] &#123;</span><br><span class="line">			seen[item] = <span class="literal">true</span></span><br><span class="line">			visitAll(m[item])</span><br><span class="line">			order = <span class="built_in">append</span>(order, item)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当匿名函数需要被递归调用时，我们必须首先声明一个变量（在上面的例子中，我们首先声明visitAll），再将匿名函数赋值给这个变量。如果不分成两部，函数字面量无法与visitAll绑定.</p>
+<h3 id="警告：捕获迭代变量"><a href="#警告：捕获迭代变量" class="headerlink" title="警告：捕获迭代变量"></a>警告：捕获迭代变量</h3><p><strong>这节极其重要！！！</strong></p>
+<p>本节，将介绍Go词法作用域的一个陷阱。请务必仔细的阅读，弄清楚发生问题的原因。即使是经验丰富<br>的程序员也会在这个问题上犯错误。<br>考虑这个样一个问题：你被要求首先创建一些目录，再将目录删除。在下面的例子中我们用函数值来完<br>成删除操作。下面的示例代码需要引入os包。为了使代码简单，我们忽略了所有的异常处理。</p>
+<p>// …do some work…<br>for _, rmdir := range rmdirs {<br>rmdir() // clean up<br>}<br>你可能会感到困惑，为什么要在循环体中用循环变量d赋值一个新的局部变量，而不是像下面的代码一样<br>直接使用循环变量dir。需要注意，下面的代码是错误的。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> rmdirs []<span class="function"><span class="keyword">func</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">for</span> _, <span class="title">d</span> := <span class="title">range</span> <span class="title">tempDirs</span><span class="params">()</span></span> &#123;</span><br><span class="line">	dir := d               <span class="comment">// <span class="doctag">NOTE:</span> necessary!</span></span><br><span class="line">	os.MkdirAll(dir, <span class="number">0755</span>) <span class="comment">// creates parent directories too</span></span><br><span class="line">	rmdirs = <span class="built_in">append</span>(rmdirs, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		os.RemoveAll(dir)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>问题的原因在于循环变量的作用域。在上面的程序中，for循环语句引入了新的词法块，循环变量dir在这个词法块中被声明。在该循环中生成的所有函数值都共享相同的循环变量。需要注意，函数值中记录的是循环变量的内存地址，而不是循环变量某一时刻的值。以dir为例，后续的迭代会不断更新dir的值，当删除操作执行时，for循环已完成，dir中存储的值等于最后一次迭代的值。这意味着，每次对os.RemoveAll的调用删除的都是相同的目录。通常，为了解决这个问题，我们会引入一个与循环变量同名的局部变量，作为循环变量的副本。比如下面的变量dir，虽然这看起来很奇怪，但却很有用。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> _, dir := <span class="keyword">range</span> tempDirs() &#123;</span><br><span class="line">    dir := dir <span class="comment">// declares inner dir, initialized to outer dir</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个问题不仅存在基于range的循环，在下面的例子中，对循环变量i的使用也存在同样的问题：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dirs := tempDirs()</span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(dirs); i++ &#123;</span><br><span class="line">    os.MkdirAll(dirs[i], <span class="number">0755</span>) <span class="comment">// OK</span></span><br><span class="line">    rmdirs = <span class="built_in">append</span>(rmdirs, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        os.RemoveAll(dirs[i]) <span class="comment">// <span class="doctag">NOTE:</span> incorrect!</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果你使用go语句（第八章）或者defer语句（5.8节）会经常遇到此类问题。这不是go或defer本身导致<br>的，而是因为它们都会等待循环结束后，再执行函数值。</p>
+<p><strong>注：for的词法作用域导致循环的时候，dir为同一个内存地址，传递给Println函数的是dir的值。</strong><br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line">    <span class="keyword">for</span> _, v := <span class="keyword">range</span> c &#123;</span><br><span class="line">        <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">            fmt.Println(v)</span><br><span class="line">        &#125;()</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(<span class="string">"Over"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h3><p>在声明可变参数函数时，需要在参数列表的最后一个参数类型之前加上省略符号“…”，这表示该函数会接收任意数量的<strong>该类型参数</strong>。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sum</span><span class="params">(vals ...<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    total := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> _, val := <span class="keyword">range</span> vals &#123;</span><br><span class="line">        total += val</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在函数体中,vals被看作是类型为[] int的切片。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>尽管没有被大众所接受的明确的OOP的定义，从我们的理解来讲，一个对象其实也就是一个简单的值或者一个变量，在这个对象中会包含一些方法，而一个方法则是一个一个和特殊类型关联的函数。一个面向对象的程序会用方法来表达其属性和对应的操作，这样使用这个对象的用户就不需要直接去操作对象，而是借助方法来做这些事情。</p>
+<h3 id="方法声明"><a href="#方法声明" class="headerlink" title="方法声明"></a>方法声明</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Point)</span> <span class="title">Distance</span><span class="params">(q Point)</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> math.Hypot(q.X-p.X, q.Y-p.Y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码里那个附加的参数p，叫做方法的接收器(receiver)，早期的面向对象语言留下的遗产将调用<br>一个方法称为“向一个对象发送消息”。<br>在Go语言中，我们并不会像其它语言那样用this或者self作为接收器；我们可以任意的选择接收器的名字。由于接收器的名字经常会被使用到，所以保持其在方法间传递时的一致性和简短性是不错的主意。这里的建议是可以使用其类型的第一个字母，比如这里使用了Point的首字母p。</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>在Go语言中，变量总是被一个定义明确的值初始化，即使接口类型也不例外。对于一个接口的零值就是它的类型和值的部分都是nil</p>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th style="text-align:center">value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td style="text-align:center">nil</td>
+</tr>
+<tr>
+<td>value</td>
+<td style="text-align:center">nil</td>
+</tr>
+</tbody>
+</table>
+<p>一个接口值可以持有任意大的动态值。接口值可以使用＝＝和！＝来进行比较。两个接口值相等仅当它们都是nil值或者它们的动态类型相同并且动态值也根据这个动态类型的＝＝操作相等。</p>
+<h2 id="GoRoutines-和-channels"><a href="#GoRoutines-和-channels" class="headerlink" title="GoRoutines 和 channels"></a>GoRoutines 和 channels</h2><h3 id="Channels"><a href="#Channels" class="headerlink" title="Channels"></a>Channels</h3><p>和map类似，channel也一个对应make创建的底层数据结构的引用。<br>复制一个channel或用于函数参数传递时，只是拷贝了一个channel引用，因此调用者和被调用者将引用同一channel对象。和其它的引用类型一样，channel的零值也是nil。<br>两个相同类型的channel可以使用==运算符比较。如果两个channel引用的是相通的对象，那么比较的结果为真<br>当一个channel被关闭后，再向该channel发送数据将导致panic异常。当一个被关闭的channel中已经发送的数据都被成功接收后，后续的接收操作将不再阻塞，它们会立即返回一个零值。</p>
+<h3 id="不带缓存的Channels"><a href="#不带缓存的Channels" class="headerlink" title="不带缓存的Channels"></a>不带缓存的Channels</h3><p>基于无缓存Channels的发送和接收操作将导致两个goroutine做一次同步操作。因为这个原因，无缓存Channels有时候也被称为同步Channels。<br>你并不需要关闭每一个channel。只要当需要告诉接收者goroutine，所有的数据已经全部发送时才需要关闭channel。不管一个channel是否被关闭，当它没有被引用时将会被Go语言的垃圾自动回收器回收。（不要将关闭一个打开文件的操作和关闭一个channel操作混淆。对于每个打开的文件，都需要在不使用的使用调用对应的Close方法来关闭文件。）</p>
+<h3 id="基于select的多路复用"><a href="#基于select的多路复用" class="headerlink" title="基于select的多路复用"></a>基于select的多路复用</h3><p>如果多个case同时就绪时，select会随机地选择一个执行，这样来保证每一个channel都有平等的被select的机会。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-done:</span><br><span class="line">        <span class="comment">// Drain fileSizes to allow existing goroutines to finish.</span></span><br><span class="line">        <span class="keyword">for</span> <span class="keyword">range</span> fileSizes &#123;</span><br><span class="line">            <span class="comment">// Do nothing.</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">case</span> size, ok := &lt;-fileSizes:</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在结束之前我们需要把fileSizes channel中的内容“排”空，在channel被关闭之前，舍弃掉所有值。</p>
+<h2 id="基于共享变量的并发"><a href="#基于共享变量的并发" class="headerlink" title="基于共享变量的并发"></a>基于共享变量的并发</h2><h3 id="竞争条件"><a href="#竞争条件" class="headerlink" title="竞争条件"></a>竞争条件</h3><p>一个函数在线性程序中可以正确地工作。如果在并发的情况下，这个函数依然可以正确地工 作的话，那么我们就说这个函数是并发安全的，并发安全的函数不需要额外的同步工作。我们可以把这 个概念概括为一个特定类型的一些方法和操作函数，如果这个类型是并发安全的话，那么所有它的访问 方法和操作就都是并发安全的。<br>竞争条件指的是程序在多个goroutine交叉执行操作时，没有给出正确的结果。竞争条件是很恶劣的一种场景，因为这种问题会一直潜伏在你的程序里，然后在非常少见的时候蹦出来<br><strong>数据竞争的定义</strong>：数据竞争会在两个以上的goroutine并发访问相同的变量且至少其中一个为写操作时发生。根据上述定义，有三种方式可以避免数据竞争：</p>
+<ul>
+<li>第一种方法是不要去写变量。</li>
+<li>第二种避免数据竞争的方法是，避免从多个goroutine访问变量。1. 变量都被限定在了一个单独的goroutine中。 由于其它的goroutine不能够直接访问变量，它们只能使用一个channel来发送给指定的goroutine请求来查询更新变量。这也就是Go的口头禅“不要使用共享数据来通信；使用通信来共享数据”。一个提供对 一个指定的变量通过cahnnel来请求goroutine叫做这个变量的监控(monitor)goroutine。2.即使当一个变量无法在其整个生命周期内被绑定到一个独立的goroutine，绑定依然是并发问题的一个解 决方案。例如在一条流水线上的goroutine之间共享变量是很普遍的行为，在这两者间会通过channel来传输地址信息。（注： 串行channel）</li>
+<li>第三种避免数据竞争的方法是允许很多goroutine去访问变量，但是在同一个时刻最多只有一个 goroutine在访问。这种方式被称为“互斥”</li>
+</ul>
+<h3 id="Goroutines和线程"><a href="#Goroutines和线程" class="headerlink" title="Goroutines和线程"></a>Goroutines和线程</h3><p>每一个OS线程都有一个固定大小的内存块(一般会是2MB)来做栈，这个栈会用来存储当前正在被调用或挂 起(指在调用其它函数时)的函数的内部变量。<br>一个goroutine会以一个很小的栈开始其生命周期，一般只需要2KB。一个goroutine的栈，和操作 系统线程一样，会保存其活跃或挂起的函数调用的本地变量，但是和OS线程不太一样的是一个goroutine 的栈大小并不是固定的；栈的大小会根据需要动态地伸缩。而goroutine的栈的最大值有1GB，比传统的 固定大小的线程栈要大得多，</p>
+<h3 id="Goroutine调度"><a href="#Goroutine调度" class="headerlink" title="Goroutine调度"></a>Goroutine调度</h3><p>OS线程会被操作系统内核调度。每几毫秒，一个硬件计时器会中断处理器，这会调用一个叫作scheduler 的内核函数。这个函数会挂起当前执行的线程并保存内存中它的寄存器内容，检查线程列表并决定下一 次哪个线程可以被运行，并从内存中恢复该线程的寄存器信息，然后恢复执行该线程的现场并开始执行 线程。因为操作系统线程是被内核所调度，所以从一个线程向另一个“移动”需要完整的上下文切换， 也就是说，保存一个用户线程的状态到内存，恢复另一个线程的到寄存器，然后更新调度器的数据结 构。这几步操作很慢，因为其局部性很差需要几次内存访问，并且会增加运行的cpu周期。</p>
+<p>Go的运行时包含了其自己的调度器，这个调度器使用了一些技术手段，比如m:n调度，因为其会在n个操 作系统线程上多工(调度)m个goroutine。Go调度器的工作和内核的调度是相似的，但是这个调度器只关 注单独的Go程序中的goroutine(译注：按程序独立)。<br>和操作系统的线程调度不同的是，Go调度器并不是用一个硬件定时器而是被Go语言”建筑”本身进行调度 的。例如当一个goroutine调用了time.Sleep或者被channel调用或者mutex操作阻塞时，调度器会使其进 入休眠并开始执行另一个goroutine直到时机到了再去唤醒第一个goroutine。因为因为这种调度方式不 需要进入内核的上下文，所以重新调度一个goroutine比调度一个线程代价要低得多。</p>
+<h2 id="包和工具"><a href="#包和工具" class="headerlink" title="包和工具"></a>包和工具</h2><p>有时候，一个中间的状态可能也是有用的，对于一小部分信任的包是可见的，但并不是对所有调用者都 可见。例如，当我们计划将一个大的包拆分为很多小的更容易维护的子包，但是我们并不想将内部的子 包结构也完全暴露出去。同时，我们可能还希望在内部子包之间共享一些通用的处理包，或者我们只是 想实验一个新包的还并不稳定的接口，暂时只暴露给一些受限制的用户使用。<br>为了满足这些需求，Go语言的构建工具对包含internal名字的路径段的包导入路径做了特殊处理。这种 包叫internal包，一个internal包只能被和internal目录有同一个父目录的包所导入。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/Go语言圣经/" rel="tag"># Go语言圣经</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/09/mongo数据库sharding/" rel="next" title="mongo数据库sharding学习记录">
+                <i class="fa fa-chevron-left"></i> mongo数据库sharding学习记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/22/MongoDB-Sharding常用命令/" rel="prev" title="MongoDB-Sharding常用命令">
+                MongoDB-Sharding常用命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/20/《Go语言圣经》学习小记（2）/" data-title="《Go语言圣经》学习小记（2）" data-url="http://yoursite.com/2016/12/20/《Go语言圣经》学习小记（2）/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="钱文翔">
+          <p class="site-author-name" itemprop="name">钱文翔</p>
+          <p class="site-description motion-element" itemprop="description">自理，自励，自立</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数声明"><span class="nav-number">1.1.</span> <span class="nav-text">函数声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误"><span class="nav-number">1.2.</span> <span class="nav-text">错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数值"><span class="nav-number">1.3.</span> <span class="nav-text">函数值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名函数"><span class="nav-number">1.4.</span> <span class="nav-text">匿名函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#警告：捕获迭代变量"><span class="nav-number">1.5.</span> <span class="nav-text">警告：捕获迭代变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可变参数"><span class="nav-number">1.6.</span> <span class="nav-text">可变参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法声明"><span class="nav-number">2.1.</span> <span class="nav-text">方法声明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口"><span class="nav-number">3.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GoRoutines-和-channels"><span class="nav-number">4.</span> <span class="nav-text">GoRoutines 和 channels</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Channels"><span class="nav-number">4.1.</span> <span class="nav-text">Channels</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不带缓存的Channels"><span class="nav-number">4.2.</span> <span class="nav-text">不带缓存的Channels</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于select的多路复用"><span class="nav-number">4.3.</span> <span class="nav-text">基于select的多路复用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于共享变量的并发"><span class="nav-number">5.</span> <span class="nav-text">基于共享变量的并发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#竞争条件"><span class="nav-number">5.1.</span> <span class="nav-text">竞争条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutines和线程"><span class="nav-number">5.2.</span> <span class="nav-text">Goroutines和线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutine调度"><span class="nav-number">5.3.</span> <span class="nav-text">Goroutine调度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包和工具"><span class="nav-number">6.</span> <span class="nav-text">包和工具</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">钱文翔</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"qwendy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

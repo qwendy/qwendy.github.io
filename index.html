@@ -1,0 +1,2165 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="笔记,Golang,翻译">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="自理，自励，自立">
+<meta property="og:type" content="website">
+<meta property="og:title" content="钱文翔的博客">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="钱文翔的博客">
+<meta property="og:description" content="自理，自励，自立">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="钱文翔的博客">
+<meta name="twitter:description" content="自理，自励，自立">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/">
+
+
+
+
+
+  <title> 钱文翔的博客 </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">钱文翔的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/28/go-cache源码阅读笔记/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/28/go-cache源码阅读笔记/" itemprop="url">
+                  go-cache源码阅读笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-28T23:29:13+08:00">
+                2018-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go学习小记/" itemprop="url" rel="index">
+                    <span itemprop="name">Go学习小记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2018/12/28/go-cache源码阅读笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/28/go-cache源码阅读笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>自己经常使用 map 加上互斥锁来处理缓存， 很久之前就在 github 上发现 <a href="https://github.com/patrickmn/go-cache" target="_blank" rel="noopener">go-cache</a> 这个项目，今天重新看到它，发现它已经 2000+star 了。 扫了一下代码，发现代码量很少，就 clone 下来看看。</p>
+<p>go-cache 实际代码就两个文件–cache.go 和 shared.go,其中 shared.go 是作者打算在大缓存数据下使用 hash 算法提升缓存的读写速度的，实际上也未对外 export，创建 sharedCache 的函数名也是小写的。</p>
+<p>cache 很简单，只有 map[string]Item 和锁。其中 Item 的结构为</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Item <span class="keyword">struct</span> &#123;</span><br><span class="line">	Object     <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">	Expiration <span class="keyword">int64</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Object 存储数据，Expiration 存储数据过期时间。创建 cache 的时候会创建一个清理器来清理过期的数据</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">newCacheWithJanitor</span><span class="params">(de time.Duration, ci time.Duration, m <span class="keyword">map</span>[<span class="keyword">string</span>]Item)</span> *<span class="title">Cache</span></span> &#123;</span><br><span class="line">	c := newCache(de, m)</span><br><span class="line">	<span class="comment">// This trick ensures that the janitor goroutine (which--granted it</span></span><br><span class="line">	<span class="comment">// was enabled--is running DeleteExpired on c forever) does not keep</span></span><br><span class="line">	<span class="comment">// the returned C object from being garbage collected. When it is</span></span><br><span class="line">	<span class="comment">// garbage collected, the finalizer stops the janitor goroutine, after</span></span><br><span class="line">	<span class="comment">// which c can be collected.</span></span><br><span class="line">	C := &amp;Cache&#123;c&#125;</span><br><span class="line">	<span class="keyword">if</span> ci &gt; <span class="number">0</span> &#123;</span><br><span class="line">		runJanitor(c, ci)</span><br><span class="line">		runtime.SetFinalizer(C, stopJanitor)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> C</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意 runtime.SetFinalizer()这个函数，之前没用过。这是是在  程序垃圾回收(garbage collection)时执行指定函数。</p>
+<p>shared.go 是创建一个 shardedCache， 包含多个 cache，通过 hash 算法(djb33)选择 cache 存取数据.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> shardedCache <span class="keyword">struct</span> &#123;</span><br><span class="line">	seed    <span class="keyword">uint32</span></span><br><span class="line">	m       <span class="keyword">uint32</span></span><br><span class="line">	cs      []*cache</span><br><span class="line">	janitor *shardedJanitor</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sharedCache 没有使用 go 的”hash/fnv”中的 hash.Hash 函数，使用的是自己写的 hash 算法，并称自己的 hash 算法 djb33 比 fnv 的快 5 倍 。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// djb2 with better shuffling. 5x faster than FNV with the hash.Hash overhead.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">djb33</span><span class="params">(seed <span class="keyword">uint32</span>, k <span class="keyword">string</span>)</span> <span class="title">uint32</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> (</span><br><span class="line">		l = <span class="keyword">uint32</span>(<span class="built_in">len</span>(k))</span><br><span class="line">		d = <span class="number">5381</span> + seed + l</span><br><span class="line">		i = <span class="keyword">uint32</span>(<span class="number">0</span>)</span><br><span class="line">	)</span><br><span class="line">	<span class="comment">// Why is all this 5x faster than a for loop?</span></span><br><span class="line">	<span class="keyword">if</span> l &gt;= <span class="number">4</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> i &lt; l<span class="number">-4</span> &#123;</span><br><span class="line">			d = (d * <span class="number">33</span>) ^ <span class="keyword">uint32</span>(k[i])</span><br><span class="line">			d = (d * <span class="number">33</span>) ^ <span class="keyword">uint32</span>(k[i+<span class="number">1</span>])</span><br><span class="line">			d = (d * <span class="number">33</span>) ^ <span class="keyword">uint32</span>(k[i+<span class="number">2</span>])</span><br><span class="line">			d = (d * <span class="number">33</span>) ^ <span class="keyword">uint32</span>(k[i+<span class="number">3</span>])</span><br><span class="line">			i += <span class="number">4</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">switch</span> l - i &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		d = (d * <span class="number">33</span>) ^ <span class="keyword">uint32</span>(k[i])</span><br><span class="line">	<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">		d = (d * <span class="number">33</span>) ^ <span class="keyword">uint32</span>(k[i])</span><br><span class="line">		d = (d * <span class="number">33</span>) ^ <span class="keyword">uint32</span>(k[i+<span class="number">1</span>])</span><br><span class="line">	<span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">		d = (d * <span class="number">33</span>) ^ <span class="keyword">uint32</span>(k[i])</span><br><span class="line">		d = (d * <span class="number">33</span>) ^ <span class="keyword">uint32</span>(k[i+<span class="number">1</span>])</span><br><span class="line">		d = (d * <span class="number">33</span>) ^ <span class="keyword">uint32</span>(k[i+<span class="number">2</span>])</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> d ^ (d &gt;&gt; <span class="number">16</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，创建 seed 代码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">max := big.NewInt(<span class="number">0</span>).SetUint64(<span class="keyword">uint64</span>(math.MaxUint32))</span><br><span class="line">rnd, err := rand.Int(rand.Reader, max)</span><br><span class="line"><span class="keyword">var</span> seed <span class="keyword">uint32</span></span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	os.Stderr.Write([]<span class="keyword">byte</span>(<span class="string">"WARNING: go-cache's newShardedCache failed to read from the system CSPRNG (/dev/urandom or equivalent.) Your system's security may be compromised. Continuing with an insecure seed.\n"</span>))</span><br><span class="line">	seed = insecurerand.Uint32()</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	seed = <span class="keyword">uint32</span>(rnd.Uint64())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>引入的包是”crypto/rand” 和 insecurerand “math/rand”。 记得以后使用”crypto/rand” 来  构造随机数，安全些。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/20/使用gRPC交互/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/09/20/使用gRPC交互/" itemprop="url">
+                  使用gRPC交互
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-20T19:11:31+08:00">
+                2017-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2017/09/20/使用gRPC交互/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/09/20/使用gRPC交互/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在.protoc中定义gRPC接口：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line">package example;</span><br><span class="line">service FormatData &#123;</span><br><span class="line">  rpc DoFormat(Data) returns (Data)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">message Data &#123;</span><br><span class="line">  string text = 1;</span><br></pre></td></tr></table></figure></p>
+<p>使用protoc将.protoc转化为你想要的语言的文件，方便调动 。<br>编译器protoc的下载地址:<br><a href="https://github.com/google/protobuf/releases/tag/v3.4.1" target="_blank" rel="noopener">https://github.com/google/protobuf/releases/tag/v3.4.1</a></p>
+<p>Windows的版本:<br><a href="https://github.com/google/protobuf/releases/download/v3.4.0/protoc-3.4.0-win32.zip" target="_blank" rel="noopener">https://github.com/google/protobuf/releases/download/v3.4.0/protoc-3.4.0-win32.zip</a></p>
+<p>使用protoc将.proto文件转为对应语言的文件。如果你想要python的协议文件的话，则将参数设置为–python_out:<br>protoc -I=./ –python_out=./ ./rpc.proto</p>
+<p>若是Golang的话，则为:<br>protoc -I=./ –go_out=./ ./rpc.proto</p>
+<p>使用Python的话，可以:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pip install grpcio</span><br><span class="line">pip install protobuf</span><br><span class="line">pip install grpcio-tools</span><br><span class="line">python -m grpc_tools.protoc -I../../protos --python_out=. --grpc_python_out=. ../../protos/helloworld.proto</span><br></pre></td></tr></table></figure></p>
+<p>proto3和proto2语法不一样，基本上是关键字变少了。</p>
+<p><a href="https://github.com/grpc/grpc/tree/master/examples/python/helloworld" target="_blank" rel="noopener">例子</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/07/(翻译)For Range Semantics/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/07/(翻译)For Range Semantics/" itemprop="url">
+                  (翻译)For Range Semantics
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-07T20:28:29+08:00">
+                2017-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go学习小记/" itemprop="url" rel="index">
+                    <span itemprop="name">Go学习小记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2017/08/07/(翻译)For Range Semantics/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/08/07/(翻译)For Range Semantics/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>原文是<a href="https://www.goinggo.net/2017/06/for-range-semantics.html" target="_blank" rel="noopener">《For Range Semantics》</a></p>
+<h3 id="序章"><a href="#序章" class="headerlink" title="序章"></a>序章</h3><p>为了更好的理解这篇文章中展现的内容，你应该先阅读以下文章：</p>
+<p>四篇文章的索引：</p>
+<ol>
+<li><p><a href="https://www.goinggo.net/2017/05/language-mechanics-on-stacks-and-pointers.html" target="_blank" rel="noopener">Language Mechanics On Stacks And Pointers</a></p>
+</li>
+<li><p><a href="https://www.goinggo.net/2017/05/language-mechanics-on-escape-analysis.html" target="_blank" rel="noopener">Language Mechanics On Escape Analysis</a></p>
+</li>
+<li><p><a href="https://www.goinggo.net/2017/06/language-mechanics-on-memory-profiling.html" target="_blank" rel="noopener">Language Mechanics On Memory Profiling</a></p>
+</li>
+<li><p><a href="https://www.goinggo.net/2017/06/design-philosophy-on-data-and-semantics.html" target="_blank" rel="noopener">Design Philosophy On Data And Semantics</a></p>
+</li>
+</ol>
+<p>值的概念和指针的语义在 Go 中无处不在。正如之前的文章中说的那样，语义一致性对于完整性和可读性至关重要。它让开发人员，随着代码库的增长，保持一个强大的代码库的心理模型。它可以尽可能减少错误，副作用和未知的表现。</p>
+<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>这这篇文章中，我将会探索在 Go 中 for range 语法块同时提供值和指针两种语义形式。我会教你语义的使用并展示给你这个语义如何衍生至更深层次。然后，我会使用一个简单的例子，来展示使用这些语义会出现的错误。</p>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/08/07/(翻译)For Range Semantics/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/02/(翻译)go-styleguide/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/02/(翻译)go-styleguide/" itemprop="url">
+                  (翻译)go-styleguide
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-02T10:31:59+08:00">
+                2017-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go学习小记/" itemprop="url" rel="index">
+                    <span itemprop="name">Go学习小记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2017/08/02/(翻译)go-styleguide/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/08/02/(翻译)go-styleguide/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>原文在这里： <a href="https://github.com/bahlo/go-styleguide/blob/master/README.md" target="_blank" rel="noopener">https://github.com/bahlo/go-styleguide/blob/master/README.md</a></p>
+<h1 id="Go-Styleguide-Go的风格指南"><a href="#Go-Styleguide-Go的风格指南" class="headerlink" title="Go Styleguide Go的风格指南"></a>Go Styleguide Go的风格指南</h1><p>This serves as a supplement to<br><a href="https://golang.org/doc/effective_go.html" target="_blank" rel="noopener">Effective Go</a>, based on years of<br>experience and inspiration/ideas from conference talks.</p>
+<p>这篇文章作为<a href="https://golang.org/doc/effective_go.html" target="_blank" rel="noopener">Effective Go</a>的补充，这是根据多年的经验和来自会议讨论的灵感/想法来写的。</p>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/08/02/(翻译)go-styleguide/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/26/Gugo！我自己写的简易静态博客生成器/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/26/Gugo！我自己写的简易静态博客生成器/" itemprop="url">
+                  Gugo！我自己写的简易静态博客生成器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-26T10:49:02+08:00">
+                2017-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2017/07/26/Gugo！我自己写的简易静态博客生成器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/26/Gugo！我自己写的简易静态博客生成器/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>我自己使用Go写了一个简易的静态博客生成器。可以将使用markdown写的博客文章转换成html博客页面。写这篇文章的时候，已经实现了博客主页文章列表，博客文章展示，tag列表和分类列表。</p>
+<p>我的github项目–<a href="https://github.com/qwendy/gugo" target="_blank" rel="noopener">gugo</a></p>
+<h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>在<a href="https://zupzup.org/static-blog-generator-go/?utm_source=golangweekly&amp;utm_medium=emai" target="_blank" rel="noopener">看完</a>并<a href="https://qwendy.github.io/2017/07/04/(%E7%BF%BB%E8%AF%91" target="_blank" rel="noopener">翻译</a>writing%20a%20Static%20Blog%20Generator%20in%20Go/)了这篇文章之后，我就有了自己写一个静态博客的想法。</p>
+<p>在此之前，我的博客使用的是hexo，看了不少hexo的document来学习使用hexo。为了使我的博客更加赏心悦目，我一直致力于更换hexo的theme，并乐此不疲。</p>
+<p>偶然间从github的trending上看到hugo，第一反应是–“哎哟，不错哟”。我对其这么有好感的主要原因是hugo是用Go写的。然后我就去官方网站看hugo的–啧啧，Hugo的官网真是丑到爆！我直接下拉看themes，嗯，真丑。（我写这篇博客的时候，hugo提供的theme样例已经很多了，看起来还很不错）</p>
+<p>所以，我虽然觉得hugo不错，但因为官方提供的theme样例丑的原因，而并没有使用hugo生成我的静态博客。虽然hugo只是一个静态博客生成器，和网站的theme并无太大关系，但是我一个theme的美观足以促使我使用这个项目。hugo没有代替hexo在我心中的地位，但是她也给了我很深的印象。</p>
+<p>当看到<a href="https://zupzup.org/static-blog-generator-go/?utm_source=golangweekly&amp;utm_medium=emai" target="_blank" rel="noopener">《Writing a Static Blog Generator in Go》</a>这篇文章的时候，我就表现出了极大的兴趣。这篇博客写的非常好，我迫不及待的翻译了这篇文章。让我受益匪浅。</p>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/26/Gugo！我自己写的简易静态博客生成器/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/" itemprop="url">
+                  (翻译)writing a Static Blog Generator in Go
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-04T11:06:08+08:00">
+                2017-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go学习小记/" itemprop="url" rel="index">
+                    <span itemprop="name">Go学习小记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>翻译原文：<a href="https://zupzup.org/static-blog-generator-go/?utm_source=golangweekly&amp;utm_medium=emai" target="_blank" rel="noopener">https://zupzup.org/static-blog-generator-go/?utm_source=golangweekly&amp;utm_medium=emai</a></p>
+<h1 id="Writing-a-Static-Blog-Generator-in-Go-使用Go写一个静态博客生成器"><a href="#Writing-a-Static-Blog-Generator-in-Go-使用Go写一个静态博客生成器" class="headerlink" title="Writing a Static Blog Generator in Go 使用Go写一个静态博客生成器"></a>Writing a Static Blog Generator in Go 使用Go写一个静态博客生成器</h1><p>A static-site-generator is a tool which, given some input (e.g. markdown) generates a fully static website using HTML, CSS and JavaScript.</p>
+<p>一个静态网站生成器是一个使用HTML, CSS and JavaScript,将给予的输入文件（例如markdown）生成完整的静态网站</p>
+<p>Why is this cool? Well, for one it’s a lot easier to host a static site and it’s also (usually) quite a bit faster and resource-friendly. Static sites aren’t the best choice for all use-cases, but for mostly non-interactive websites such as blogs they are great.</p>
+<p>为什么这很Cool？是的，对于一个人来说，主持一个静态的网站要容易得多，而且(通常)也会更快，而且资源更友好。静态网站不是对所有情况都是最好的选择，但是对于大多数非交互网站比如博客，是非常好的。</p>
+<p>In this post, I will describe the static blog generator I wrote in Go, which powers this blog.</p>
+<p>在本文中，我将描述我使用Go编写的静态博客生成器，它为这个博客提供了强大的功能。<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/28/翻译-取消多个Goroutines/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/28/翻译-取消多个Goroutines/" itemprop="url">
+                  (翻译)取消多个Goroutines
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-28T13:06:04+08:00">
+                2017-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go学习小记/" itemprop="url" rel="index">
+                    <span itemprop="name">Go学习小记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2017/06/28/翻译-取消多个Goroutines/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/28/翻译-取消多个Goroutines/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>原文 <a href="https://chilts.org/2017/06/12/cancelling-multiple-goroutines" target="_blank" rel="noopener">https://chilts.org/2017/06/12/cancelling-multiple-goroutines</a></p>
+<h1 id="Cancelling-Multiple-Goroutines-取消多协程"><a href="#Cancelling-Multiple-Goroutines-取消多协程" class="headerlink" title="Cancelling Multiple Goroutines 取消多协程"></a>Cancelling Multiple Goroutines 取消多协程</h1><p>When Go was first released, there was a way to do some things in concurrency. As time has gone on, various things have changed. The Context package for one thing. :)</p>
+<p>在Go刚开始发行的时候，只有一种并发的方法。随着时间流逝，很多事情都发生了变化。Context包就是其中之一。</p>
+<p>This article doesn’t go into all of the ways of doing concurrency but will focus on one problem and take you through a few different solutions so you can see how things have evolved.</p>
+<p>这篇文章不会探究所有并发的方法，但是会研究一个问题，并带你熟悉一些不同的解决方法，让你了解方法是如何推论出来的。</p>
+<h2 id="The-Problem"><a href="#The-Problem" class="headerlink" title="The Problem"></a>The Problem</h2><p>The problem I’d like to address here is being able to cancel multiple goroutines. There are many blog posts out there (I curate @CuratedGo, please follow) which show how to cancel just one goroutine, but my use-case was slightly more complicated. The rest of this article summarises my progress through getting this to work.</p>
+<p>我在这里想提出的问题是取消对协程。有许多blog写了如何取消一个协程，但是我的用例是更加复杂的。下面的文章总结了我实现的过程。</p>
+<p>The way we’re going decide when to quit is by listening for a C-c keypress. Of course at that point, we want to make sure we tidy up things nicely at that point. For example, if we’re currently streaming tweets from Twitter, we’d rather we told them we’re finished than just drop the connection.</p>
+<p>我们要决定何时退出的方式是监听C-c按键。当然，我们确保我们在这一点上很好地处理事情。例如，如果我们目前正在推送Twitter的推文，我们要告诉他们我们已经完成，而不是放弃了解。</p>
+<p>Let’s get started.<br>让我们开始吧<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/28/翻译-取消多个Goroutines/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/28/lec01学习笔记/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/28/lec01学习笔记/" itemprop="url">
+                  lec01学习笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-28T11:24:01+08:00">
+                2017-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/6-824课程/" itemprop="url" rel="index">
+                    <span itemprop="name">6.824课程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2017/06/28/lec01学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/28/lec01学习笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>分为: 存储，通讯和计算<br>关键点：实现，性能，容错和一致性。一致性和性能不可兼得<br>split-brain的意思是A true split brain means multiple systems are online and have accessed an exclusive resource simultaneously</p>
+<p>MapReduce： 定义Map和Reduce函数，输入数组形式的数据。</p>
+<p>扩展：不互相等待，不共享数据。可并发执行。可单纯的配置更多的计算机来获得更多的吞吐量<br>性能：Hard to build a network than can run 1000x faster than a single computer.So they cared about minimizing movement of data over the network.一般会被网络限制。尽量减少数据在网络上传输。<br>容错：当Map和Reduce失败时，重新运行。他们仅仅是函数而已–他们不修改输入的内容，不用保存状态，不共享内存，没有Map-Map和Reduce-Reduce的交互。所以重新执行会得到相同的输出。纯函数（pure function）的这个需求是相对于其他并行编程方案的主要限制，也是MR简单的原因。</p>
+<p>MapReduce由Mater和Worker组成。Master给workers分配工作，决定worker运行map方法还是reduce方法。当worker执行错误，直接重启worker就好。<br>master的调度程序<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/28/lec01学习笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/21/使用网页打开本地程序/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/21/使用网页打开本地程序/" itemprop="url">
+                  使用网页打开本地程序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-21T20:44:40+08:00">
+                2017-06-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2017/06/21/使用网页打开本地程序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/21/使用网页打开本地程序/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>浏览器中使用 window.open()打开 URL。当 URL 为特定的前缀的时候（URI Scheme），就会调用注册表中对应的指令。</p>
+<h2 id="写入注册表"><a href="#写入注册表" class="headerlink" title="写入注册表"></a>写入注册表</h2><p>参考 <a href="https://msdn.microsoft.com/en-us/library/aa767914(VS.85).aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/en-us/library/aa767914(VS.85).aspx</a><br>其中的关键是在注册表中写入如下的注册表项</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HKEY_CLASSES_ROOT</span><br><span class="line">	alert</span><br><span class="line">		(Default) = &quot;URL:Alert Protocol&quot;</span><br><span class="line">		URL Protocol = &quot;&quot;</span><br><span class="line">		DefaultIcon</span><br><span class="line">        (Default) = &quot;alert.exe,1&quot;</span><br><span class="line">    shell</span><br><span class="line">		open</span><br><span class="line">            command</span><br><span class="line">			(Default) = &quot;C:\Program Files\Alert\alert.exe&quot; &quot;%1</span><br></pre></td></tr></table></figure>
+<p>使用 go 操作注册表.path 为程序的地址。uri 为调用程序的 URI Scheme。<br>使用 js 调用 window.open(“uri://“)就可以打开程序。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">regKey</span><span class="params">(path <span class="keyword">string</span>,uri <span class="keyword">string</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	vconsoleKey, ok, err := registry.CreateKey(registry.CLASSES_ROOT, uri, registry.CREATE_SUB_KEY|registry.SET_VALUE)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		logger.Printf(<span class="string">"CreateKey console err :%v\n"</span>, err)</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> ok &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> vconsoleKey.Close()</span><br><span class="line">	vconsoleKey.SetStringValue(<span class="string">"URL Protocol"</span>, <span class="string">""</span>)</span><br><span class="line">	vconsoleKey.SetStringValue(<span class="string">"DefaultIcon"</span>, path)</span><br><span class="line">	shellKey, _, err := registry.CreateKey(vconsoleKey, <span class="string">`shell`</span>, registry.CREATE_SUB_KEY)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		logger.Printf(<span class="string">"CreateKey shell err :%v\n"</span>, err)</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	openKey, _, err := registry.CreateKey(shellKey, <span class="string">`open`</span>, registry.CREATE_SUB_KEY)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		logger.Printf(<span class="string">"CreateKey open err :%v\n"</span>, err)</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	commandKey, _, err := registry.CreateKey(openKey, <span class="string">`command`</span>, registry.CREATE_SUB_KEY|registry.SET_VALUE)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		logger.Printf(<span class="string">"CreateKey err :%v\n"</span>, err)</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	commandKey.SetStringValue(<span class="string">""</span>, path)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="获取管理员权限"><a href="#获取管理员权限" class="headerlink" title="获取管理员权限"></a>获取管理员权限</h2><p>在注册表中写入注册表项需要管理员权限。</p>
+<ul>
+<li>go get github.com/akavel/rsrc</li>
+<li>把 nac.manifest 文件拷贝到当前 windows 项目根目录</li>
+<li>rsrc -manifest nac.manifest -o nac.syso</li>
+<li>go build</li>
+</ul>
+<p>nac.mainfest 的内容为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">assembly</span> <span class="attr">xmlns</span>=<span class="string">"urn:schemas-microsoft-com:asm.v1"</span> <span class="attr">manifestVersion</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">trustInfo</span> <span class="attr">xmlns</span>=<span class="string">"urn:schemas-microsoft-com:asm.v3"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">security</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">requestedPrivileges</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">requestedExecutionLevel</span> <span class="attr">level</span>=<span class="string">"requireAdministrator"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">requestedPrivileges</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">security</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">trustInfo</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/26/（翻译）BitTorrent-Protocol协议规范/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/26/（翻译）BitTorrent-Protocol协议规范/" itemprop="url">
+                  （翻译）BitTorrent-Protocol协议规范
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-26T10:52:55+08:00">
+                2016-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/DHT/" itemprop="url" rel="index">
+                    <span itemprop="name">DHT</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2016/12/26/（翻译）BitTorrent-Protocol协议规范/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/26/（翻译）BitTorrent-Protocol协议规范/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>本文翻译原文：<a href="http://www.bittorrent.org/beps/bep_0003.html" target="_blank" rel="noopener">http://www.bittorrent.org/beps/bep_0003.html</a><br>BitTorrent是一个分发文件的协议。它通过URL识别内容，旨在与网络无缝集成。它和一般的HTTP相比的优势在于，当同一个文件的多个下载同时发生时，下载者相互上传，使得文件源可以支持非常大量下载，而其负载增加很小。</p>
+<h2 id="BitTorrent文件分发有这些部分组成："><a href="#BitTorrent文件分发有这些部分组成：" class="headerlink" title="BitTorrent文件分发有这些部分组成："></a>BitTorrent文件分发有这些部分组成：</h2><ul>
+<li>一个普通的web服务器</li>
+<li>静态“元信息（metainfo）”文件</li>
+<li>BitTorrent跟踪器（tracker）</li>
+<li>“原始”下载器</li>
+<li>用户web浏览器端</li>
+<li>用户下载器端</li>
+</ul>
+<p>理想情况下多端用户现在同一个文件</p>
+<h2 id="要开始服务，主机将执行以下步骤"><a href="#要开始服务，主机将执行以下步骤" class="headerlink" title="要开始服务，主机将执行以下步骤"></a>要开始服务，主机将执行以下步骤</h2><ol>
+<li>开启一个跟踪器（tracker）</li>
+<li>开启一个普通的web服务器，例如Apache</li>
+<li>在他们的Web服务器上，将扩展名.torrent与mimetype应用程序/ x-bittorrent相关联。</li>
+<li>使用提供的完整的文件和跟踪器URL，生成一个元数据（metainfo）的(.torrent) 文件</li>
+<li>将元信息(.torrent)文件放在web服务器上</li>
+<li>链接来自其它网页的(.torrent)元数据文件
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/26/（翻译）BitTorrent-Protocol协议规范/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </li></ol></div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="钱文翔">
+          <p class="site-author-name" itemprop="name">钱文翔</p>
+          <p class="site-description motion-element" itemprop="description">自理，自励，自立</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">钱文翔</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"qwendy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

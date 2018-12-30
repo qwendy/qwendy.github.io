@@ -1,0 +1,1000 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="静态博客,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="翻译原文：https://zupzup.org/static-blog-generator-go/?utm_source=golangweekly&amp;amp;utm_medium=emai Writing a Static Blog Generator in Go 使用Go写一个静态博客生成器A static-site-generator is a tool which, given some in">
+<meta name="keywords" content="静态博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(翻译)writing a Static Blog Generator in Go">
+<meta property="og:url" content="http://yoursite.com/2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/index.html">
+<meta property="og:site_name" content="钱文翔的博客">
+<meta property="og:description" content="翻译原文：https://zupzup.org/static-blog-generator-go/?utm_source=golangweekly&amp;amp;utm_medium=emai Writing a Static Blog Generator in Go 使用Go写一个静态博客生成器A static-site-generator is a tool which, given some in">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-07T12:11:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(翻译)writing a Static Blog Generator in Go">
+<meta name="twitter:description" content="翻译原文：https://zupzup.org/static-blog-generator-go/?utm_source=golangweekly&amp;amp;utm_medium=emai Writing a Static Blog Generator in Go 使用Go写一个静态博客生成器A static-site-generator is a tool which, given some in">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/">
+
+
+
+
+
+  <title> (翻译)writing a Static Blog Generator in Go | 钱文翔的博客 </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">钱文翔的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/">
+
+  <span style="display:none" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="钱文翔">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="钱文翔的博客">
+    <span style="display:none" itemprop="logo" itemscope="" itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="钱文翔的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                (翻译)writing a Static Blog Generator in Go
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-04T11:06:08+08:00">
+                2017-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go学习小记/" itemprop="url" rel="index">
+                    <span itemprop="name">Go学习小记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>翻译原文：<a href="https://zupzup.org/static-blog-generator-go/?utm_source=golangweekly&amp;utm_medium=emai" target="_blank" rel="noopener">https://zupzup.org/static-blog-generator-go/?utm_source=golangweekly&amp;utm_medium=emai</a></p>
+<h1 id="Writing-a-Static-Blog-Generator-in-Go-使用Go写一个静态博客生成器"><a href="#Writing-a-Static-Blog-Generator-in-Go-使用Go写一个静态博客生成器" class="headerlink" title="Writing a Static Blog Generator in Go 使用Go写一个静态博客生成器"></a>Writing a Static Blog Generator in Go 使用Go写一个静态博客生成器</h1><p>A static-site-generator is a tool which, given some input (e.g. markdown) generates a fully static website using HTML, CSS and JavaScript.</p>
+<p>一个静态网站生成器是一个使用HTML, CSS and JavaScript,将给予的输入文件（例如markdown）生成完整的静态网站</p>
+<p>Why is this cool? Well, for one it’s a lot easier to host a static site and it’s also (usually) quite a bit faster and resource-friendly. Static sites aren’t the best choice for all use-cases, but for mostly non-interactive websites such as blogs they are great.</p>
+<p>为什么这很Cool？是的，对于一个人来说，主持一个静态的网站要容易得多，而且(通常)也会更快，而且资源更友好。静态网站不是对所有情况都是最好的选择，但是对于大多数非交互网站比如博客，是非常好的。</p>
+<p>In this post, I will describe the static blog generator I wrote in Go, which powers this blog.</p>
+<p>在本文中，我将描述我使用Go编写的静态博客生成器，它为这个博客提供了强大的功能。<br><a id="more"></a></p>
+<h2 id="Motivation-动机"><a href="#Motivation-动机" class="headerlink" title="Motivation 动机"></a>Motivation 动机</h2><p>You might be familiar with static-site-generators like the great Hugo, which has just about all the features one could hope for in regards to static site generation.</p>
+<p>你可能对像Hugo这样的静态站点生成器很熟悉，它拥有关于静态站点生成的所有特性。</p>
+<p>So why would I write another tool just like it with fewer capabilities? The reason was twofold.</p>
+<p>所以我为什么写另外一个像它一样但功能更少的工具？原因有两个。</p>
+<p>One reason was that I wanted to dive deeper into Go and a command-line-based static-site-generator seemed like a great playground to hone my skills.</p>
+<p>一个原因是我想要深入学习Go，一个基于命令行的静态博客生成器似乎是一个磨练我技能的好地方。</p>
+<p>The second reason was simply that I had never done it before. I’ve done my fair share of web-development, but I never created a static-site-generator.</p>
+<p>第二个原因是，我以前从未做过这个。我做过我的web开发的分享，但我从未创建过静态站点生成器。</p>
+<p>This made it intriguing because I theoretically had all the prerequisites and skills to build such a tool with my background in web-development, but I had never tried doing it.</p>
+<p>这很有趣，因为我在理论上具备了在web开发背景下构建这样一个工具的所有先决条件和技能，但我从未尝试过这样做。</p>
+<p>I was hooked, implemented it within about 2 weeks and had a great time doing it. I used my blog-generator for creating this blog and it worked great so far. :)</p>
+<p>我被迷住了，在大约两周的时间内实现了它，在实现的时候我很高兴。我用我的博客生成器创建了这个博客，到目前为止效果很好。:)</p>
+<h2 id="Concept-概念"><a href="#Concept-概念" class="headerlink" title="Concept 概念"></a>Concept 概念</h2><p>Early on, I decided to write my blog posts in markdown and keep them in a GitHub Repo. The posts are structured in folders, which represent the url of the blog post.</p>
+<p>早些时候，我决定使用markdown写我的博客文章，并将他们放在github的仓库（repo）中。文章以文件夹为结构，代表了博客文章的url</p>
+<p>For metadata, such as publication date, tags, title and subtitle I decided on keeping a meta.yml file with each post.md file with the following format:</p>
+<p>至于metadata，例如发布日期，标签，标题和副标题，我决定使用meta.yml，每个帖子都有以下的格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">title: Playing Around with BoltDB </span><br><span class="line">short: &quot;Looking for a simple key/value store for your Go applications? Look no further!&quot;</span><br><span class="line">date: 20.04.2017</span><br><span class="line">tags:</span><br><span class="line">    - golang</span><br><span class="line">    - go</span><br><span class="line">    - boltdb</span><br><span class="line">    - bolt</span><br></pre></td></tr></table></figure>
+<p>This allowed me to separate the content from the metadata, but still keep everything in the same place, where I’d find it later.</p>
+<p>这允许我将内容从metadata中分离，但是需要将所有东西放在同一个地方，让我能待会儿能找到它。</p>
+<p>The GitHub Repo was my data source. The next step was to think about features and I came up with this List:</p>
+<p>github repo是我的数据来源。下一步是考虑特性，我想到了以下内容：</p>
+<ul>
+<li>Very Lean (landing page should be 1 Request &lt; 10K gzipped)非常轻量。（登录页面应该1个请求小于10k）</li>
+<li>Listing for the landing page and an Archive 展示</li>
+<li>Possibility to use syntax-highlighted Code and Images within Blog Posts 在文章中能够使用语法高亮代码，图片</li>
+<li>Tags 标签</li>
+<li>RSS feed (index.xml) RSS订阅</li>
+<li>Optional Static Pages (e.g. About) 可选的静态页面（例如：About） </li>
+<li>High Maintainability - use the least amount of templates possible 高可维护性-使尽可能少的模板</li>
+<li>sitemap.xml for SEO 用于SEO的sitemap.xml</li>
+<li>Local preview of the whole blog (a simple run.sh script)本地的整个博客的预览(简单的run.sh脚本)</li>
+</ul>
+<p>Quite a healthy feature set. What was very important for me from the start, was to keep everything simple, fast and clean - without any third-party trackers or ads, which compromise privacy and slow everything down.</p>
+<p>相当健壮的特性集.对我来说最开始最重要的，是保持所有的东西都要简单，快速和干净 – 没有任何第三方的跟踪器和广告，保证隐私和使所有事情都放缓。</p>
+<p>Based on these ideas, I started making a rough plan of the architecture and started coding.</p>
+<p>基于这些想法，我开始对架构进行粗略的规划，并开始编写代码。</p>
+<h2 id="Architectural-Overview-架构概述"><a href="#Architectural-Overview-架构概述" class="headerlink" title="Architectural Overview 架构概述"></a>Architectural Overview 架构概述</h2><p>The application is simple enough. The high-level elements are:</p>
+<p>程序足够简单。高等级的元素如下：</p>
+<ul>
+<li>CLI 命令行界面</li>
+<li>DataSource 数据源</li>
+<li>Generators 生成器</li>
+</ul>
+<p>The CLI in this case is very simple, as I didn’t add any features in terms of configurability. It basically just fetches data from the DataSource and runs the Generators on it.</p>
+<p>在这里CLI非常简单，因为我没有在可配置性方面添加任何特性。仅仅是从DataSource中获取数据 ，并使用生成器运行它。</p>
+<p>The DataSource interface looks like this:</p>
+<p>DotaSource接口长这样：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> DataSource <span class="keyword">interface</span> &#123;</span><br><span class="line">    Fetch(from, to <span class="keyword">string</span>) ([]<span class="keyword">string</span>, error)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The Generator interface looks like this:<br>生成器接口长这样：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Generator <span class="keyword">interface</span> &#123;</span><br><span class="line">    Generate() error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Pretty simple. Each Generator also receives a configuration struct, which contains all the necessary data for generation.</p>
+<p>相当简单。每一个生成器都接受一个配置的结构体，包含了所有需要的信息。</p>
+<p>There are 7 Generators at the time of writing this post:</p>
+<p>写这篇文章的时候，有了7个生成器。</p>
+<ul>
+<li>SiteGenerator</li>
+<li>ListingGenerator</li>
+<li>PostGenerator</li>
+<li>RSSGenerator</li>
+<li>SitemapGenerator</li>
+<li>StaticsGenerator</li>
+<li>TagsGenerator<br>Where the SiteGenerator is the meta-generator, which calls all other generators and outputs the whole static website.</li>
+</ul>
+<p>SiteGenerator是meta-generator调用其他所有的生成器并输出整个静态网站的地方。</p>
+<p>The generation is based on HTML templates using Go’s html/template package.</p>
+<p>生成器基于HTML模板，使用Go的html/template package.</p>
+<h2 id="Implementation-Details-实现细节"><a href="#Implementation-Details-实现细节" class="headerlink" title="Implementation Details 实现细节"></a>Implementation Details 实现细节</h2><p>In this section I will just cover a few selected parts I think might be interesting, such as the git DataSource and the different Generators.</p>
+<p>在本节中，我将介绍一些我认为可能很有趣的部分，如git数据源和不同的生成器。</p>
+<h3 id="DataSource"><a href="#DataSource" class="headerlink" title="DataSource"></a>DataSource</h3><p>First up, we need some data to generate our blog from. This data, as mentioned above has the form of a git repository. The following Fetch function captures most of what the DataSource implementation does:</p>
+<p>首先，我们需要一些数据来生成我们的博客。如上所述，这些数据具有git存储库的形式。下面的Fetch函数展示了大多数数据源实现的功能:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(ds *GitDataSource)</span> <span class="title">Fetch</span><span class="params">(from, to <span class="keyword">string</span>)</span> <span class="params">([]<span class="keyword">string</span>, error)</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">"Fetching data from %s into %s...\n"</span>, from, to)</span><br><span class="line">    <span class="keyword">if</span> err := createFolderIfNotExist(to); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> err := clearFolder(to); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> err := cloneRepo(to, from); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    dirs, err := getContentFolders(to)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Print(<span class="string">"Fetching complete.\n"</span>)</span><br><span class="line">    <span class="keyword">return</span> dirs, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Fetch is called with two parameters from, which is a repository URL and to, which is the destination folder. The function creates and clears the destination folder, clones the repository using os/exec plus a git command and finally reads the folder, returning a list of paths for all the files within the repository.</p>
+<p>Fetch使用2个参数来调用，一个是repo的url ，一个是目标的文件夹。这个函数创建并清除目标文件夹，使用os/exec添加一个git命令克隆repo，最后读取文件夹，返回repo中的所有文件的路径列表</p>
+<p>As mentioned above, the repository contains only folders, which represent the different blog posts. The array with these folder paths is then passed to the generators, which can then do their thing for each of the blog posts within the repository.</p>
+<p>如上所说，这个repo仅仅包含文件夹，代表着不同博客的文章。将这些文件夹路径的数据传递给生成器，</p>
+<h3 id="Kicking-it-all-off-开始完成所有的目标"><a href="#Kicking-it-all-off-开始完成所有的目标" class="headerlink" title="Kicking it all off 开始完成所有的目标"></a>Kicking it all off 开始完成所有的目标</h3><p>After the Fetch comes the Generate phase. When the blog-generator is executed, the following code is executed on the highest level:</p>
+<p>在Fetch之后，接下来是Generate阶段。当blog-generator执行的时候，下面的代码会最先执行。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ds := datasource.New()</span><br><span class="line">dirs, err := ds.Fetch(RepoURL, TmpFolder)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Fatal(err)</span><br><span class="line">&#125;</span><br><span class="line">g := generator.New(&amp;generator.SiteConfig&#123;</span><br><span class="line">    Sources:     dirs,</span><br><span class="line">    Destination: DestFolder,</span><br><span class="line">&#125;)</span><br><span class="line">err = g.Generate()</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Fatal(err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The generator.New function creates a new SiteGenerator which is basically a generator, which calls other generators. It’s passed a destination folder and the directories for the blog posts within the repository.</p>
+<p>generate.New函数创建一个新的SiteGenerate，SiteGenerate是一个基本的生成器，它调用其他生成器。需要传递目标文件夹和生成在repo中博客文章的目录。</p>
+<p>As every Generator implementing the interface mentioned above, the SiteGenerator has a Generate method, which returns an error. The Generate method of the SiteGenerator prepares the destination folder, reads in templates, prepares data structures for the blog posts, registers the other generators and concurrently runs them.</p>
+<p>正如上面提到的每一个生成器接口的实现，SiteGenerate有一个返回error的Generate方法。SiteGenerate的Generate的方法准备了目标文件夹，读取模板，准备博客文章的数据结构，注册其他生成器并且并发执行他们。</p>
+<p>The SiteGenerator also registers some settings for the blog like the URL, Language, Date Format etc. These settings are simply global constants, which is certainly not the prettiest solution or the most scalable, but it’s simple and that was the highest goal here.</p>
+<p>SiteGenerate同样注册了一些文章的设置，例如URL，语言，数据格式等等。这些设置是简单的全局常量，这当然不是最好的解决办法也不是最有扩展性的，但是它很简单，并且在这里，这是我们的最高目标。</p>
+<h3 id="Posts"><a href="#Posts" class="headerlink" title="Posts"></a>Posts</h3><p>The most important concept on a blog are - surprise, surprise - blog posts! In the context of this blog-generator, they are represented by the following data-structure:</p>
+<p>博客最重要的概念就是博客的文章。在这个blog-生成器的上下文中，它们由以下数据结构表示:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Post <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name      <span class="keyword">string</span></span><br><span class="line">    HTML      []<span class="keyword">byte</span></span><br><span class="line">    Meta      *Meta</span><br><span class="line">    ImagesDir <span class="keyword">string</span></span><br><span class="line">    Images    []<span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>These posts are created by iterating over the folders in the repository, reading the meta.yml file, converting the post.md file to HTML and by adding images, if there are any.</p>
+<p>这些文章是通过在存储库中的文件夹中迭代来创建的，读取meta.yml文件，转换post.md文件到HTML，如果有图像的话添加图像。</p>
+<p>Quite a bit of work, but once we have the posts represented as a data structure, the generation of posts is quite simple and looks like this:</p>
+<p>做了很多工作，但是一旦我们的post被表示为数据结构，文章的生成就很简单了，看起来就像这样:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *PostGenerator)</span> <span class="title">Generate</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    post := g.Config.Post</span><br><span class="line">    destination := g.Config.Destination</span><br><span class="line">    t := g.Config.Template</span><br><span class="line">    staticPath := fmt.Sprintf(<span class="string">"%s%s"</span>, destination, post.Name)</span><br><span class="line">    <span class="keyword">if</span> err := os.Mkdir(staticPath, os.ModePerm); err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> fmt.Errorf(<span class="string">"error creating directory at %s: %v"</span>, staticPath, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> post.ImagesDir != <span class="string">""</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> err := copyImagesDir(post.ImagesDir, staticPath); err != <span class="literal">nil</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> err</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> err := writeIndexHTML(staticPath, post.Meta.Title, template.HTML(<span class="keyword">string</span>(post.HTML)), t); err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>First, we create a directory for the post, then we copy the images in there and finally create the post’s index.html file using templating. The PostGenerator also implements syntax-highlighting, which I described in this post.</p>
+<p>首先，我们给post创建一个目录，然后复制图片到这里，最后使用模板创建post的index.html。我在本文中说了，PostGenerate实现了语法高亮。</p>
+<h3 id="Listing-Creation-清单创建"><a href="#Listing-Creation-清单创建" class="headerlink" title="Listing Creation 清单创建"></a>Listing Creation 清单创建</h3><p>When a user comes to the landing page of the blog, she sees the latest posts with information like the reading time of the article and a short description. For this feature and for the archive, I implemented the ListingGenerator, which takes the following config:</p>
+<p>当一个用户访问博客登录界面的时候，她会看到最近的文章的信息，例如阅读文章需要的时间和简单的描述。为了这个特性并且为了存档，我们实现了ListingGenerator，使用了如下的配置：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> ListingConfig <span class="keyword">struct</span> &#123;</span><br><span class="line">    Posts                  []*Post</span><br><span class="line">    Template               *template.Template</span><br><span class="line">    Destination, PageTitle <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The Generate method of this generator iterates over the post, assembles their metadata and creates short blocks based on the given template. Then these blocks are appended and written to the index template.</p>
+<p>这个生成器的生成方法在post上迭代，组装它们的元数据，并根据给定的模板创建短块。然后将这些块附加到索引模板中。</p>
+<p>I liked medium’s feature to approximate the time to read an article, so I implemented my own version of it, based on the assumption that an average human reads about 200 words per minute. Images also count towards the overall reading time with a constant 12 seconds added for each img tag in the post. This will obviously not scale for arbitrary content, but should be a fine approximation for my usual articles:</p>
+<p>我喜欢阅读文章的近似时间的媒体特性，所以我实现了自己的版本。假设人类凭借每分钟阅读200个单词。图片同样计入总阅读时间，以每张图12秒计算。这显然不适合任意内容，但很适合我的文章。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">calculateTimeToRead</span><span class="params">(input <span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="comment">// an average human reads about 200 wpm</span></span><br><span class="line">    <span class="keyword">var</span> secondsPerWord = <span class="number">60.0</span> / <span class="number">200.0</span></span><br><span class="line">    <span class="comment">// multiply with the amount of words</span></span><br><span class="line">    words := secondsPerWord * <span class="keyword">float64</span>(<span class="built_in">len</span>(strings.Split(input, <span class="string">" "</span>)))</span><br><span class="line">    <span class="comment">// add 12 seconds for each image</span></span><br><span class="line">    images := <span class="number">12.0</span> * strings.Count(input, <span class="string">"&lt;img"</span>)</span><br><span class="line">    result := (words + <span class="keyword">float64</span>(images)) / <span class="number">60.0</span></span><br><span class="line">    <span class="keyword">if</span> result &lt; <span class="number">1.0</span> &#123;</span><br><span class="line">        result = <span class="number">1.0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%.0fm"</span>, result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Tags-标签"><a href="#Tags-标签" class="headerlink" title="Tags 标签"></a>Tags 标签</h3><p>Next, to have a way to categorize and filter the posts by topic, I opted to implement a simple tagging mechanism. Posts have a list of tags in their meta.yml file. These tags should be listed on a separate Tags Page and upon clicking on a tag, the user is supposed to see a listing of posts with the selected tag.</p>
+<p>接下来，为了分类和通过主题过滤文章，我选择实现一个简单的标签机制。文章在meta.yml中有标签列表。这些标签应该在独立的标签页中，根据点击一个标签，用户应该能看到这个标签的文章列表。</p>
+<p>First up, we create a map from tag to Post:</p>
+<p>首先，我们创建标签到文章的映射表。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">createTagPostsMap</span><span class="params">(posts []*Post)</span> <span class="title">map</span>[<span class="title">string</span>][]*<span class="title">Post</span></span> &#123;</span><br><span class="line">result := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>][]*Post)</span><br><span class="line">    <span class="keyword">for</span> _, post := <span class="keyword">range</span> posts &#123;</span><br><span class="line">        <span class="keyword">for</span> _, tag := <span class="keyword">range</span> post.Meta.Tags &#123;</span><br><span class="line">            key := strings.ToLower(tag)</span><br><span class="line">             <span class="keyword">if</span> result[key] == <span class="literal">nil</span> &#123;</span><br><span class="line">                 result[key] = []*Post&#123;post&#125;</span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                 result[key] = <span class="built_in">append</span>(result[key], post)</span><br><span class="line">             &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Then, there are two tasks to implement:</p>
+<p>然后，有两个任务要去实现</p>
+<ul>
+<li>Tags Page 标签页</li>
+<li>List of Posts for a selected Tag 展示选择的标签的文章啊<br>The data structure of a Tag looks like this:</li>
+</ul>
+<p>数据结构如下<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Tag <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name  <span class="keyword">string</span></span><br><span class="line">    Link  <span class="keyword">string</span></span><br><span class="line">    Count <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>So, we have the actual tag (Name), the Link to the tag’s listing page and the amount of posts with this tag. These tags are created from the tagPostsMap and then sorted by Count descending:</p>
+<p>所以，我们有实际的标签（名），标签列表页的连接和这个标签的文章。这些标签由tagPostMap创建，然后根据数目降序排列。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tags := []*Tag&#123;&#125;</span><br><span class="line"><span class="keyword">for</span> tag, posts := <span class="keyword">range</span> tagPostsMap &#123;</span><br><span class="line">    tags = <span class="built_in">append</span>(tags, &amp;Tag&#123;Name: tag, Link: getTagLink(tag), Count: <span class="built_in">len</span>(posts)&#125;)</span><br><span class="line">&#125;</span><br><span class="line">sort.Sort(ByCountDesc(tags))</span><br></pre></td></tr></table></figure></p>
+<p>The Tags Page basically just consists of this list rendered into the tags/index.html file.</p>
+<p>标签页仅仅由渲染到tags/index.html的文件组成</p>
+<p>The List of Posts for a selected Tag can be achieved using the ListingGenerator described above. We just need to iterate the tags, create a folder for each tag, select the posts to display and generate a listing for them.</p>
+<p>选择的标签的文章列表能被存档，使用上面的ListingGenerator。我们仅仅需要迭代标签，给每一个标签创建文件夹，选择选择文章展示并生成列表</p>
+<h3 id="Sitemap-amp-RSS"><a href="#Sitemap-amp-RSS" class="headerlink" title="Sitemap &amp; RSS"></a>Sitemap &amp; RSS</h3><p>To improve searchability on the web, it’s a good idea to have a sitemap.xml which can be crawled by bots. Creating such a file is fairly straightforward and can be done using the Go standard library.</p>
+<p>为了提高网站的搜索能力，有个好主意是拥有一个sitemap.xml，它能够被bots爬到。创建这样的一个文件相当简单，使用Go的标准库就可以了。</p>
+<p>In this tool, however, I opted to use the great etree library, which provides a nice API for creating and reading XML.</p>
+<p>但是在这个工具里，我选择使用<a href="https://github.com/beevik/etree" target="_blank" rel="noopener">etree</a>库，它提供创建个读取xml非常好用的API。</p>
+<p>The SitemapGenerator uses this config:</p>
+<p>SitemapGenerator使用这个配置：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> SitemapConfig <span class="keyword">struct</span> &#123;</span><br><span class="line">    Posts       []*Post</span><br><span class="line">    TagPostsMap <span class="keyword">map</span>[<span class="keyword">string</span>][]*Post</span><br><span class="line">    Destination <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>blog-generator takes a basic approach to the sitemap and just generates url and image locations by using the addURL function:</p>
+<p>blog-generator对站点地图进行了基本的处理，并通过使用addURL函数生成url和图像位置。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addURL</span><span class="params">(element *etree.Element, location <span class="keyword">string</span>, images []<span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    url := element.CreateElement(<span class="string">"url"</span>)</span><br><span class="line">     loc := url.CreateElement(<span class="string">"loc"</span>)</span><br><span class="line">     loc.SetText(fmt.Sprintf(<span class="string">"%s/%s/"</span>, blogURL, location))</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span> <span class="built_in">len</span>(images) &gt; <span class="number">0</span> &#123;</span><br><span class="line">         <span class="keyword">for</span> _, image := <span class="keyword">range</span> images &#123;</span><br><span class="line">            img := url.CreateElement(<span class="string">"image:image"</span>)</span><br><span class="line">             imgLoc := img.CreateElement(<span class="string">"image:loc"</span>)</span><br><span class="line">             imgLoc.SetText(fmt.Sprintf(<span class="string">"%s/%s/images/%s"</span>, blogURL, location, image))</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>After creating the XML document with etree, it’s just saved to a file and stored in the output folder.</p>
+<p>使用etree创建xml文件之后，保存并存储文件到文件夹中。</p>
+<p>RSS generation works the same way - iterate all posts and create XML entries for each post, then write to index.xml.</p>
+<p>Rss生成器使用同样的方法生成 - 遍历所有文章并为每个post创建XML条目，然后将其写入index.XML。</p>
+<h3 id="Handling-Statics"><a href="#Handling-Statics" class="headerlink" title="Handling Statics"></a>Handling Statics</h3><p>The last concept I needed were entirely static assets like a favicon.ico or a static page like About. To do this, the tool runs the StaticsGenerator with this config:</p>
+<p>我所需要的最后一个概念是完全静态的资源，比如favicon.ico或静态页面例如About。为了做到这一点，该工具使用这个配置来运行StaticsGenerator:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> StaticsConfig <span class="keyword">struct</span> &#123;</span><br><span class="line">    FileToDestination <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line">    TemplateToFile    <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line">    Template          *template.Template</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The FileToDestination-map represents static files like images or the robots.txt and TemplateToFile is a mapping from templates in the static folder to their designated output path.</p>
+<p>FileToDestination-map表示像图片或者robot.txt的静态文件，TemplateToFiles是从静态文件夹中的模板到指定的输出路径的映射。</p>
+<p>This configuration could look like this in practice:</p>
+<p>实际上，配置文件是这样的：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fileToDestination := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">    <span class="string">"static/favicon.ico"</span>: fmt.Sprintf(<span class="string">"%s/favicon.ico"</span>, destination),</span><br><span class="line">    <span class="string">"static/robots.txt"</span>:  fmt.Sprintf(<span class="string">"%s/robots.txt"</span>, destination),</span><br><span class="line">    <span class="string">"static/about.png"</span>:   fmt.Sprintf(<span class="string">"%s/about.png"</span>, destination),</span><br><span class="line">&#125;</span><br><span class="line">templateToFile := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">    <span class="string">"static/about.html"</span>: fmt.Sprintf(<span class="string">"%s/about/index.html"</span>, destination),</span><br><span class="line">&#125;</span><br><span class="line">statg := StaticsGenerator&#123;&amp;StaticsConfig&#123;</span><br><span class="line">FileToDestination: fileToDestination,</span><br><span class="line">   TemplateToFile:    templateToFile,</span><br><span class="line">   Template:          t,</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>The code for generating these statics is not particularly interesting - as you can imagine, the files are just iterated and copied to the given destination.</p>
+<p>生成这些静态文件的代码不是很有趣 - 正如你想的那样，仅仅就是遍历文件，并复制到目标地点</p>
+<h3 id="Parallel-Execution-并行执行"><a href="#Parallel-Execution-并行执行" class="headerlink" title="Parallel Execution 并行执行"></a>Parallel Execution 并行执行</h3><p>For blog-generator to be fast, the generators are all run in parallel. For this purpose, they all follow the Generator interface - this way we can put them all inside a slice and concurrently call Generate for all of them.</p>
+<p>为了让blog-generator更快，生成器都并行运行。为了这个目的，他们都遵循着Generator的接口 - 这样我可以将他们放在一个slice中，并发的调用生成器。</p>
+<p>The generators all work independently of one another and don’t use any global state mutation, so parallelizing them was a simple exercise of using channels and a sync.WaitGroup like this:</p>
+<p>生成器运行都相互独立，且不使用任何全局状态变化，所以并行是一个简单的使用channel和sync.WaitGroup的练习，就像这样：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">runTasks</span><span class="params">(posts []*Post, t *template.Template, destination <span class="keyword">string</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line">    finished := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>, <span class="number">1</span>)</span><br><span class="line">    errors := <span class="built_in">make</span>(<span class="keyword">chan</span> error, <span class="number">1</span>)</span><br><span class="line">    pool := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;, <span class="number">50</span>)</span><br><span class="line">    generators := []Generator&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> _, post := <span class="keyword">range</span> posts &#123;</span><br><span class="line">        pg := PostGenerator&#123;&amp;PostConfig&#123;</span><br><span class="line">            Post:        post,</span><br><span class="line">             Destination: destination,</span><br><span class="line">             Template:    t,</span><br><span class="line">        &#125;&#125;</span><br><span class="line">        generators = <span class="built_in">append</span>(generators, &amp;pg)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fg := ListingGenerator&#123;&amp;ListingConfig&#123;</span><br><span class="line">        Posts:       posts[:getNumOfPagesOnFrontpage(posts)],</span><br><span class="line">        Template:    t,</span><br><span class="line">        Destination: destination,</span><br><span class="line">        PageTitle:   <span class="string">""</span>,</span><br><span class="line">    &#125;&#125;</span><br><span class="line"></span><br><span class="line">    ...create the other generators...</span><br><span class="line"></span><br><span class="line">    generators = <span class="built_in">append</span>(generators, &amp;fg, &amp;ag, &amp;tg, &amp;sg, &amp;rg, &amp;statg)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> _, generator := <span class="keyword">range</span> generators &#123;</span><br><span class="line">        wg.Add(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(g Generator)</span></span> &#123;</span><br><span class="line">            <span class="keyword">defer</span> wg.Done()</span><br><span class="line">            pool &lt;- <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">            <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; &lt;-pool &#125;()</span><br><span class="line">            <span class="keyword">if</span> err := g.Generate(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">                errors &lt;- err</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;(generator)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        wg.Wait()</span><br><span class="line">        <span class="built_in">close</span>(finished)</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-finished:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">case</span> err := &lt;-errors:</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> err</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The runTasks function uses a pool of max. 50 goroutines, creates all generators, adds them to a slice and then runs them in parallel.</p>
+<p>runTasks函数使用最大50协程的协程池，创建所有生成器，将他们添加到slice中，然后并行运行他们</p>
+<p>These examples were just a short dive into the basic concepts used to write a static-site generator in Go.</p>
+<p>这些例子仅仅初步深入基本概念用于使用Go写一个静态网站生成器</p>
+<p>If you’re interested in the full implementation, you can find the code here.</p>
+<p>如果你对整个实现感兴趣，你可以在<a href="https://github.com/zupzup/blog-generator" target="_blank" rel="noopener">这里</a>找到代码.</p>
+<h2 id="Conclusion-总结"><a href="#Conclusion-总结" class="headerlink" title="Conclusion 总结"></a>Conclusion 总结</h2><p>Writing my blog-generator was an absolute blast and a great learning experience. It’s also quite satisfying to use my own hand-crafted tool for creating my blog.</p>
+<p>编写我的博客生成器是一种绝对的挑战，也是一种很好的学习体验。使用我自己的手工工具创建我的博客也很令人满意。</p>
+<p>To publish my posts to AWS, I also created static-aws-deploy, another Go command-line tool, which I covered in this post.</p>
+<p>为了发布我的文章到AWS，我同样创建了<a href="https://github.com/zupzup/static-aws-deploy" target="_blank" rel="noopener">static-aws-deploy</a>，额外的Go命令行工具，我在这篇<a href="https://zupzup.org/static-deploy-tool/" target="_blank" rel="noopener">文章</a>中会提到提到</p>
+<p>If you want to use the tool yourself, just fork the repo and change the configuration. However, I didn’t put much time into customizability or configurability, as Hugo provides all that and more.</p>
+<p>如果你想自己使用这个工具，仅仅fork这个repo，并修改配置就可以了。但是，我没有花太多时间来做可定制化和可配置化，因为<a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>提供的了所有你需要的。</p>
+<p>Of course, one should strive not to re-invent the wheel all the time, but sometimes re-inventing a wheel or two can be rewarding and can help you learn quite a bit in the process. :)</p>
+<p>当然，一个人应该努力不去重新发明轮子，但是有时候重新发明一两个轮子是值得的，可以帮助你在这个过程中学到很多东西。:)</p>
+<h3 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h3><ul>
+<li><a href="https://github.com/zupzup/blog-generator" target="_blank" rel="noopener">blog-generator on GitHub</a></li>
+<li><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></li>
+<li><a href="https://github.com/beevik/etree" target="_blank" rel="noopener">etree</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/静态博客/" rel="tag"># 静态博客</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/28/翻译-取消多个Goroutines/" rel="next" title="(翻译)取消多个Goroutines">
+                <i class="fa fa-chevron-left"></i> (翻译)取消多个Goroutines
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/26/Gugo！我自己写的简易静态博客生成器/" rel="prev" title="Gugo！我自己写的简易静态博客生成器">
+                Gugo！我自己写的简易静态博客生成器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/" data-title="(翻译)writing a Static Blog Generator in Go" data-url="http://yoursite.com/2017/07/04/翻译-writing-a-Static-Blog-Generator-in-Go/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="钱文翔">
+          <p class="site-author-name" itemprop="name">钱文翔</p>
+          <p class="site-description motion-element" itemprop="description">自理，自励，自立</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Writing-a-Static-Blog-Generator-in-Go-使用Go写一个静态博客生成器"><span class="nav-number">1.</span> <span class="nav-text">Writing a Static Blog Generator in Go 使用Go写一个静态博客生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation-动机"><span class="nav-number">1.1.</span> <span class="nav-text">Motivation 动机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Concept-概念"><span class="nav-number">1.2.</span> <span class="nav-text">Concept 概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Architectural-Overview-架构概述"><span class="nav-number">1.3.</span> <span class="nav-text">Architectural Overview 架构概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementation-Details-实现细节"><span class="nav-number">1.4.</span> <span class="nav-text">Implementation Details 实现细节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DataSource"><span class="nav-number">1.4.1.</span> <span class="nav-text">DataSource</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kicking-it-all-off-开始完成所有的目标"><span class="nav-number">1.4.2.</span> <span class="nav-text">Kicking it all off 开始完成所有的目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Posts"><span class="nav-number">1.4.3.</span> <span class="nav-text">Posts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Listing-Creation-清单创建"><span class="nav-number">1.4.4.</span> <span class="nav-text">Listing Creation 清单创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tags-标签"><span class="nav-number">1.4.5.</span> <span class="nav-text">Tags 标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sitemap-amp-RSS"><span class="nav-number">1.4.6.</span> <span class="nav-text">Sitemap &amp; RSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handling-Statics"><span class="nav-number">1.4.7.</span> <span class="nav-text">Handling Statics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parallel-Execution-并行执行"><span class="nav-number">1.4.8.</span> <span class="nav-text">Parallel Execution 并行执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion-总结"><span class="nav-number">1.5.</span> <span class="nav-text">Conclusion 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Resources"><span class="nav-number">1.5.1.</span> <span class="nav-text">Resources</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">钱文翔</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"qwendy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
